@@ -12,8 +12,9 @@ import static org.junit.Assert.assertNotNull;
 @RunWith (SpringRunner.class)
 @SpringBootTest
 public class InvoiceControllerTest {
+
 	@Autowired
-	InvoiceController invoiceController;
+	private InvoiceController invoiceController;
 
 	@Test
 	public void contextLoads() {
