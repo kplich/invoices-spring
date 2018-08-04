@@ -11,6 +11,9 @@ public class Invoice {
 	private LocalDate issueDate;
 	private LocalDate saleDate;
 
+	public Invoice() {
+	}
+
 	public String getInvoiceId() {
 		return invoiceId;
 	}

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.*;
 
 @Entity
-public class Order {
+public class TransportOrder {
 	@Id
 	private int number;
 
