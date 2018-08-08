@@ -30,6 +30,10 @@ public class OrderController {
 		boolean result = false;
 
 		try {
+			Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
+
+			invoice.ifPresent(order::setInvoice); //woah, nice! ;)
+
 			service.getOrderRepository().save(order);
 			result = true;
 		}
