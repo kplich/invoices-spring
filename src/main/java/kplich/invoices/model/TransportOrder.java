@@ -12,6 +12,9 @@ public class TransportOrder {
 	private String unloadingLocation;
 	private BigDecimal value;
 
+	@ManyToOne
+	private Invoice invoice;
+
 	public int getNumber() {
 		return number;
 	}
