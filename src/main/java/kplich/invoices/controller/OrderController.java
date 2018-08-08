@@ -4,6 +4,7 @@ import kplich.invoices.model.*;
 import kplich.invoices.service.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.*;
 import java.util.*;
 
 @RestController
@@ -25,8 +26,21 @@ public class OrderController {
 		return service.getOrderRepository().findAll();
 	}
 
+	@GetMapping(path = "/get/invoice")
+	public Iterable<TransportOrder> getByInvoice(@RequestParam String invoiceId) {
+		Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
+
+		if(invoice.isPresent()) {
+			return service.getOrderRepository().findByInvoice(invoice.get());
+		}
+		else {
+			throw new IllegalArgumentException("There's no invoice with given ID.");
+		}
+	}
+
 	@PostMapping(path = "/add")
-	public boolean addOrUpdate(@ModelAttribute TransportOrder order, @RequestParam(required = false, defaultValue = "") String invoiceId) {
+	public boolean addOrUpdate(@Valid @ModelAttribute TransportOrder order,
+							   @RequestParam(required = false, defaultValue = "") String invoiceId) {
 		boolean result = false;
 
 		try {

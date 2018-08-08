@@ -1,6 +1,7 @@
 package kplich.invoices.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.*;
 
 @Entity
@@ -9,8 +10,13 @@ public class TransportOrder {
 	@Id
 	private int number;
 
+	@NotNull
 	private String loadingLocation;
+
+	@NotNull
 	private String unloadingLocation;
+
+	@NotNull
 	private BigDecimal value;
 
 	@ManyToOne
