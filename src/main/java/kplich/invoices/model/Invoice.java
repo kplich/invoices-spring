@@ -1,6 +1,9 @@
 package kplich.invoices.model;
 
+import org.springframework.format.annotation.*;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.*;
 
 @Entity
@@ -8,7 +11,12 @@ public class Invoice {
 	@Id
 	private String invoiceId;
 
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate issueDate;
+
+	@NotNull
+	@DateTimeFormat (pattern = "yyyy-MM-dd")
 	private LocalDate saleDate;
 
 	public Invoice() {
