@@ -1,4 +1,4 @@
-package kplich.invoices;
+package kplich.invoices.controller;
 
 import kplich.invoices.controller.*;
 import org.junit.Test;
@@ -9,16 +9,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
+@RunWith (SpringRunner.class)
 @SpringBootTest
-public class OrderControllerTest {
+public class InvoiceControllerTest {
 
 	@Autowired
-	OrderController orderController;
+	private InvoiceController invoiceController;
 
 	@Test
 	public void contextLoads() {
-		assertNotNull(orderController);
+		assertNotNull(invoiceController);
 	}
 
 }

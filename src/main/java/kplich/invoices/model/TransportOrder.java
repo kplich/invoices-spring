@@ -5,6 +5,7 @@ import java.math.*;
 
 @Entity
 public class TransportOrder {
+
 	@Id
 	private int number;
 
@@ -15,35 +16,86 @@ public class TransportOrder {
 	@ManyToOne
 	private Invoice invoice;
 
-	public int getNumber() {
-		return number;
+	//for JPA or sth?
+	//TODO: immutability clashes with Hibernate and testing?
+	protected TransportOrder() {
 	}
 
-	public void setNumber(int number) {
+	public TransportOrder(int number, String loadingLocation, String unloadingLocation, BigDecimal value) {
 		this.number = number;
+		this.loadingLocation = loadingLocation;
+		this.unloadingLocation = unloadingLocation;
+		this.value = value;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 
 	public String getLoadingLocation() {
 		return loadingLocation;
 	}
 
-	public void setLoadingLocation(String loadingLocation) {
-		this.loadingLocation = loadingLocation;
-	}
-
 	public String getUnloadingLocation() {
 		return unloadingLocation;
-	}
-
-	public void setUnloadingLocation(String unloadingLocation) {
-		this.unloadingLocation = unloadingLocation;
 	}
 
 	public BigDecimal getValue() {
 		return value;
 	}
 
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public void setLoadingLocation(String loadingLocation) {
+		this.loadingLocation = loadingLocation;
+	}
+
+	public void setUnloadingLocation(String unloadingLocation) {
+		this.unloadingLocation = unloadingLocation;
+	}
+
 	public void setValue(BigDecimal value) {
 		this.value = value;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+
+		if(this != obj) {
+			if (obj instanceof TransportOrder) {
+				TransportOrder compared = (TransportOrder) obj;
+
+				result = (this.number == compared.number &&
+						  this.loadingLocation.equals(compared.loadingLocation) &&
+						  this.unloadingLocation.equals(compared.unloadingLocation) &&
+						  this.value.equals(compared.value));
+			}
+		}
+		else {
+			result = true;
+		}
+
+		return result;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Integer.hashCode(number);
+
+		result = 31 * result + loadingLocation.hashCode();
+		result = 31 * result + unloadingLocation.hashCode();
+		result = 31 * result + value.hashCode();
+
+		return result;
+	}
+
+	@Override
+	public String toString() {
+
+		return "number: " + number + ",\nloading location: " + loadingLocation + ",\nunloading location: " +
+			   unloadingLocation + ",\nvalue: " + value.toString();
 	}
 }
