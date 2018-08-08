@@ -2,6 +2,7 @@ package kplich.invoices.controller;
 
 import kplich.invoices.model.*;
 import kplich.invoices.repository.*;
+import kplich.invoices.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +12,20 @@ import java.util.*;
 @RestController
 @RequestMapping(path = "/invoices")
 public class InvoiceController {
-	private InvoiceRepository repository;
+	private MainService service;
 
-	public InvoiceController(InvoiceRepository repository) {
-		this.repository = repository;
+	public InvoiceController(MainService service) {
+		this.service = service;
 	}
 
 	@GetMapping (path = "/get/all")
 	public Iterable<Invoice> getAll() {
-		return repository.findAll();
+		return service.getInvoiceRepository().findAll();
 	}
 
 	@GetMapping(path = "/get")
 	public Optional<Invoice> getById(@RequestParam String id) {
-		return repository.findById(id);
+		return service.getInvoiceRepository().findById(id);
 	}
 
 	//TODO: do we need the methods to return anything?
@@ -33,7 +34,7 @@ public class InvoiceController {
 		boolean result = false;
 
 		try {
-			repository.save(invoice);
+			service.getInvoiceRepository().save(invoice);
 			result = true;
 		}
 		catch (Exception e) {
@@ -45,6 +46,6 @@ public class InvoiceController {
 
 	@DeleteMapping(path = "/delete")
 	public void deleteById(@RequestParam String id) {
-		repository.deleteById(id);
+		service.getInvoiceRepository().deleteById(id);
 	}
 }
