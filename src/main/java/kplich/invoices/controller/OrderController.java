@@ -26,10 +26,11 @@ public class OrderController {
 	}
 
 	@PostMapping(path = "/add")
-	public boolean addOrUpdate(@ModelAttribute TransportOrder order) {
+	public boolean addOrUpdate(@ModelAttribute TransportOrder order, @RequestParam(required = false, defaultValue = "") String invoiceId) {
 		boolean result = false;
 
 		try {
+
 			repository.save(order);
 			result = true;
 		}
