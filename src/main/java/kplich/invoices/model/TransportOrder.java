@@ -18,7 +18,7 @@ public class TransportOrder {
 
 	//for JPA or sth?
 	//TODO: immutability clashes with Hibernate and testing?
-	protected TransportOrder() {
+	public TransportOrder() {
 	}
 
 	public TransportOrder(int number, String loadingLocation, String unloadingLocation, BigDecimal value) {
@@ -44,6 +44,10 @@ public class TransportOrder {
 		return value;
 	}
 
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
 	public void setNumber(int number) {
 		this.number = number;
 	}
@@ -58,6 +62,10 @@ public class TransportOrder {
 
 	public void setValue(BigDecimal value) {
 		this.value = value;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 	@Override
