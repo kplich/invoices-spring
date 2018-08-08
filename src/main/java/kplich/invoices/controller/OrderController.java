@@ -1,7 +1,7 @@
 package kplich.invoices.controller;
 
 import kplich.invoices.model.*;
-import kplich.invoices.repository.*;
+import kplich.invoices.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -9,20 +9,20 @@ import java.util.*;
 @RestController
 @RequestMapping(path = "/orders")
 public class OrderController {
-	private OrderRepository repository;
+	private MainService service;
 
-	public OrderController(OrderRepository repository) {
-		this.repository = repository;
+	public OrderController(MainService service) {
+		this.service = service;
 	}
 
 	@GetMapping(path = "/get")
 	public Optional<TransportOrder> getByNumber(@RequestParam int number) {
-		return repository.findById(number);
+		return service.getOrderRepository().findById(number);
 	}
 
 	@GetMapping(path = "/get/all")
 	public Iterable<TransportOrder> getAll() {
-		return repository.findAll();
+		return service.getOrderRepository().findAll();
 	}
 
 	@PostMapping(path = "/add")
@@ -30,8 +30,11 @@ public class OrderController {
 		boolean result = false;
 
 		try {
+			Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
 
-			repository.save(order);
+			invoice.ifPresent(order::setInvoice); //woah, nice! ;)
+
+			service.getOrderRepository().save(order);
 			result = true;
 		}
 		catch (Exception e) {
@@ -45,10 +48,10 @@ public class OrderController {
 	public boolean delete(@RequestParam int number) {
 		boolean result = false;
 
-		Optional<TransportOrder> toBeDeleted = repository.findById(number);
+		Optional<TransportOrder> toBeDeleted = service.getOrderRepository().findById(number);
 
 		if(toBeDeleted.isPresent()) {
-			repository.delete(toBeDeleted.get());
+			service.getOrderRepository().delete(toBeDeleted.get());
 			result = true;
 		}
 
