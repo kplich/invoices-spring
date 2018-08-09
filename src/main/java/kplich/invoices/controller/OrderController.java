@@ -45,7 +45,8 @@ public class OrderController {
 	}
 
 	@GetMapping(path = "/add")
-	public String addOrUpdate() {
+	public String addOrUpdate(Model model) {
+		model.addAttribute("invoiceList", service.getInvoiceRepository().findAll());
 		return "addOrder";
 	}
 

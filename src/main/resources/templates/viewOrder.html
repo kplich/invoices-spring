@@ -6,16 +6,19 @@
 </head>
 <body>
     <p th:text="${order.number}">
-        order number
+        165987
     </p>
     <p th:text="${order.loadingLocation}">
-        order number
+        Tomaszów Mazowiecki PL
     </p>
     <p th:text="${order.unloadingLocation}">
-        order number
+        Velenje SLO
     </p>
     <p th:text="${order.value}">
-        order number
+        3562.45
+    </p>
+    <p th:text="${order.invoice != null} ? ${order.invoice.invoiceId} : 'None'">
+        9/2018
     </p>
 
 </body>
