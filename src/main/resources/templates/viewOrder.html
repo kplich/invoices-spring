@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p th:text="${order.number}">
+        165987
+    </p>
+    <p th:text="${order.loadingLocation}">
+        Tomaszów Mazowiecki PL
+    </p>
+    <p th:text="${order.unloadingLocation}">
+        Velenje SLO
+    </p>
+    <p th:text="${order.value}">
+        3562.45
+    </p>
+    <p th:text="${order.invoice != null} ? ${order.invoice.invoiceId} : 'None'">
+        9/2018
+    </p>
+
+</body>
+</html>
