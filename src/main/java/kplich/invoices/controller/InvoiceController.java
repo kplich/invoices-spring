@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController
+@Controller
 @RequestMapping(path = "/invoices")
 public class InvoiceController {
 	private MainService service;
@@ -19,17 +19,20 @@ public class InvoiceController {
 	}
 
 	@GetMapping (path = "/get/all")
+    @ResponseBody
 	public Iterable<Invoice> getAll() {
 		return service.getInvoiceRepository().findAll();
 	}
 
 	@GetMapping(path = "/get")
+    @ResponseBody
 	public Optional<Invoice> getById(@RequestParam String id) {
 		return service.getInvoiceRepository().findById(id);
 	}
 
 	//TODO: do we need the methods to return anything?
 	@PutMapping(path = "/add")
+    @ResponseBody
 	public boolean add(@ModelAttribute Invoice invoice) {
 		boolean result = false;
 
