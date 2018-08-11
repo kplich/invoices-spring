@@ -35,19 +35,17 @@ public class InvoiceController {
 
 	//TODO: do we need the methods to return anything?
 	@PostMapping(path = "/add")
-    @ResponseBody
-	public String add(@ModelAttribute Invoice invoice, BindingResult result) {
-	    StringBuilder sb = new StringBuilder();
+	public void add(@ModelAttribute Invoice invoice, BindingResult result) {
+
 	    if(result.hasErrors())  {
 	        for(ObjectError error: result.getAllErrors()) {
-                sb.append(error.toString());
+	            //TODO: better logging
+                System.out.println(error.toString());
             }
         }
         else {
-            sb.append(invoice.toString());
+            service.saveInvoice(invoice);
         }
-
-        return sb.toString();
 	}
 
 	@GetMapping(path = "/add")
