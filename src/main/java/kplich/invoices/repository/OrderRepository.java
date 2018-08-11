@@ -6,5 +6,5 @@ import org.springframework.data.repository.*;
 import java.util.*;
 
 public interface OrderRepository extends CrudRepository<TransportOrder, Integer> {
-	List<TransportOrder> findByInvoice(Invoice invoice);
+    Iterable<TransportOrder> findByInvoice(Invoice invoice);
 }

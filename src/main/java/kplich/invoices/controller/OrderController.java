@@ -37,7 +37,7 @@ public class OrderController {
 		Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
 
 		if(invoice.isPresent()) {
-			return service.getOrderRepository().findByInvoice(invoice.get());
+			return invoice.get().getOrders();
 		}
 		else {
 			throw new IllegalArgumentException("There's no invoice with given ID.");
@@ -51,14 +51,10 @@ public class OrderController {
 	}
 
 	@PostMapping(path = "/add")
-	public String addOrUpdate(@Valid @ModelAttribute TransportOrder order,
+	public String addOrUpdate(@ModelAttribute TransportOrder order,
 						      @RequestParam(required = false, defaultValue = "") String invoiceId,
 							  Model model) {
 		try {
-			Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
-
-			invoice.ifPresent(order::setInvoice); //woah, nice! ;)
-
 			service.getOrderRepository().save(order);
 		}
 		catch (Exception e) {

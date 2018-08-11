@@ -18,16 +18,7 @@
         <p>
             Value: <input type="text" name="value" title="Value">
         </p>
-        <p>
-            Invoice:
-            <select class="form-control" name="invoiceId" title="Invoice">
-                <option value="">None</option>
-                <option th:each="invoice: ${invoiceList}"
-                        th:value="${invoice.invoiceId}"
-                        th:text="${invoice.invoiceId}"></option>
 
-            </select>
-        </p>
         <button type="submit">Submit!</button>
     </form>
 </body>
