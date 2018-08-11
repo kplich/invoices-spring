@@ -2,15 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Order</title>
+    <title>Orders</title>
 </head>
 <body>
+    <h1>All orders:</h1>
+    <table>
+        <tr>
+            <th>Number</th>
+            <th>Loading location</th>
+            <th>Unloading location</th>
+            <th>Value</th>
+        </tr>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.number}">123456</td>
+            <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
+            <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
+            <td th:text="${order.value}">1234.56</td>
+            <!-- TODO: link to the order and delete button -->
+        </tr>
+    </table>
+
     <form method="post" action="/orders/add" th:object="${newOrder}">
         <table>
             <tr>
                 <th>Number:</th>
                 <td>
-                    <input type="number" th:field="*{number}"/>
+                    <input type="number" th:field="*{number}" />
                 </td>
             </tr>
             <tr>

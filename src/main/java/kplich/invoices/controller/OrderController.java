@@ -6,7 +6,6 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.*;
 import java.util.*;
 
 @Controller
@@ -26,9 +25,11 @@ public class OrderController {
 	}
 
 	@GetMapping(path = "/get/all")
-	@ResponseBody
-	public Iterable<TransportOrder> getAll() {
-		return service.getOrderRepository().findAll();
+	public String getAll(Model model) {
+	    model.addAttribute("orders", service.getOrderRepository().findAll());
+	    model.addAttribute("newOrder", new TransportOrder());
+
+		return "viewOrders";
 	}
 
 	@GetMapping(path = "/get/invoice")
@@ -46,14 +47,13 @@ public class OrderController {
 
 	@GetMapping(path = "/add")
 	public String addOrUpdate(Model model) {
-		model.addAttribute("invoiceList", service.getInvoiceRepository().findAll());
+	    model.addAttribute("newOrder", new TransportOrder());
+
 		return "addOrder";
 	}
 
 	@PostMapping(path = "/add")
-	public String addOrUpdate(@ModelAttribute TransportOrder order,
-						      @RequestParam(required = false, defaultValue = "") String invoiceId,
-							  Model model) {
+	public String addOrUpdate(@ModelAttribute TransportOrder order, Model model) {
 		try {
 			service.getOrderRepository().save(order);
 		}
@@ -61,8 +61,10 @@ public class OrderController {
 			e.printStackTrace(); //TODO no to jak to logowac?
 		}
 
-		model.addAttribute("order", order);
-		return "viewOrder";
+		model.addAttribute("orders", service.getOrderRepository().findAll());
+		model.addAttribute("newOrder", new TransportOrder());
+
+		return "viewOrders";
 	}
 
 	@DeleteMapping(path = "/delete")
