@@ -5,19 +5,33 @@
     <title>Add New Order</title>
 </head>
 <body>
-    <form method="post" action="/orders/add">
-        <p>
-            Order number: <input type="number" name="number" title="Order number">
-        </p>
-        <p>
-            Loading location: <input type="text" name="loadingLocation" title="Loading location">
-        </p>
-        <p>
-            Unloading location: <input type="text" name="unloadingLocation" title="Unloading location">
-        </p>
-        <p>
-            Value: <input type="text" name="value" title="Value">
-        </p>
+    <form method="post" action="/orders/add" th:object="${newOrder}">
+        <table>
+            <tr>
+                <th>Number:</th>
+                <td>
+                    <input type="number" th:field="*{number}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Loading location:</th>
+                <td>
+                    <input type="text" th:field="*{loadingLocation}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Unloading location:</th>
+                <td>
+                    <input type="text" th:field="*{unloadingLocation}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Value:</th>
+                <td>
+                    <input type="text" th:field="*{value}"/>
+                </td>
+            </tr>
+        </table>
 
         <button type="submit">Submit!</button>
     </form>

@@ -18,7 +18,39 @@
             <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
             <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
             <td th:text="${order.value}">1234.56</td>
+            <!-- TODO: link to the order and delete button -->
         </tr>
     </table>
+
+    <form method="post" action="/orders/add" th:object="${newOrder}">
+        <table>
+            <tr>
+                <th>Number:</th>
+                <td>
+                    <input type="number" th:field="*{number}" />
+                </td>
+            </tr>
+            <tr>
+                <th>Loading location:</th>
+                <td>
+                    <input type="text" th:field="*{loadingLocation}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Unloading location:</th>
+                <td>
+                    <input type="text" th:field="*{unloadingLocation}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Value:</th>
+                <td>
+                    <input type="text" th:field="*{value}"/>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit">Submit!</button>
+    </form>
 </body>
 </html>
