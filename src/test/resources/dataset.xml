@@ -1,0 +1,14 @@
+<dataset>
+    <transport_order number="1"
+                     loading_location="Tomaszów Mazowiecki PL"
+                     unloading_location="Łódź PL"
+                     value="999.99"/>
+    <transport_order number="2"
+                     loading_location="Łódź PL"
+                     unloading_location="Zagrzeb HR"
+                     value="3999.99"/>
+    <transport_order number="3"
+                     loading_location="Jarosty PL"
+                     unloading_location="Zagrzeb HR"
+                     value="4240.59"/>
+</dataset>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoices</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Issue date</th>
+            <th>Sale date</th>
+        </tr>
+        <tr th:each="invoice: ${invoices}">
+            <td th:text="${invoice.invoiceId}">5/2018</td>
+            <td th:text="${invoice.issueDate}">2018-03-15</td>
+            <td th:text="${invoice.saleDate}">2018-03-17</td>
+        </tr>
+    </table>
+</body>
+</html>
