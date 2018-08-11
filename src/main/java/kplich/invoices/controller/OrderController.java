@@ -26,9 +26,10 @@ public class OrderController {
 	}
 
 	@GetMapping(path = "/get/all")
-	@ResponseBody
-	public Iterable<TransportOrder> getAll() {
-		return service.getOrderRepository().findAll();
+	public String getAll(Model model) {
+	    model.addAttribute("orders", service.getOrderRepository().findAll());
+
+		return "viewOrders";
 	}
 
 	@GetMapping(path = "/get/invoice")

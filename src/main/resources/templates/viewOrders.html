@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+<body>
+    <h1>All orders:</h1>
+    <table>
+        <tr>
+            <th>Number</th>
+            <th>Loading location</th>
+            <th>Unloading location</th>
+            <th>Value</th>
+        </tr>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.number}">123456</td>
+            <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
+            <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
+            <td th:text="${order.value}">1234.56</td>
+        </tr>
+    </table>
+</body>
+</html>
