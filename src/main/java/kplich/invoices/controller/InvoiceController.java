@@ -22,9 +22,11 @@ public class InvoiceController {
 	}
 
 	@GetMapping (path = "/get/all")
-    @ResponseBody
-	public Iterable<Invoice> getAll() {
-		return service.getInvoiceRepository().findAll();
+	public String getAll(Model model) {
+
+	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+
+		return "viewInvoices";
 	}
 
 	@GetMapping(path = "/get")
@@ -35,7 +37,7 @@ public class InvoiceController {
 
 	//TODO: do we need the methods to return anything?
 	@PostMapping(path = "/add")
-	public void add(@ModelAttribute Invoice invoice, BindingResult result) {
+	public String add(@ModelAttribute Invoice invoice, BindingResult result, Model model) {
 
 	    if(result.hasErrors())  {
 	        for(ObjectError error: result.getAllErrors()) {
@@ -46,6 +48,9 @@ public class InvoiceController {
         else {
             service.saveInvoice(invoice);
         }
+
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        return "viewInvoices";
 	}
 
 	@GetMapping(path = "/add")

@@ -21,7 +21,7 @@ public class Invoice {
 	private LocalDate saleDate;
 
 	@NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<TransportOrder> orders;
 
 	public Invoice() {
