@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Invoice</title>
+</head>
+<body>
+    <form action="/invoices/add" th:object="${invoice}" method="post">
+        <table>
+            <tr>
+                <th>
+                    Invoice ID:
+                </th>
+                <th>
+                    <input type="text" th:field="*{invoiceId}"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Issue date:
+                </th>
+                <th>
+                    <input type="date" th:field="*{issueDate}"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Sale date:
+                </th>
+                <th>
+                    <input type="date" th:field="*{saleDate}">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Orders:
+                </th>
+                <th>
+                    <select multiple="multiple" th:field="*{orders}">
+                        <option th:each="order : ${unusedOrders}"
+                                th:value="${order.number}"
+                                th:text="${order.toString()}">Possible orders</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

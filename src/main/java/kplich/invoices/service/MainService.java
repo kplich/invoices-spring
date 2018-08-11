@@ -1,5 +1,6 @@
 package kplich.invoices.service;
 
+import kplich.invoices.model.TransportOrder;
 import kplich.invoices.repository.*;
 import org.springframework.stereotype.*;
 

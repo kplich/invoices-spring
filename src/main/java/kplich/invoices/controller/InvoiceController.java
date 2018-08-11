@@ -5,6 +5,9 @@ import kplich.invoices.repository.*;
 import kplich.invoices.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -31,20 +34,28 @@ public class InvoiceController {
 	}
 
 	//TODO: do we need the methods to return anything?
-	@PutMapping(path = "/add")
+	@PostMapping(path = "/add")
     @ResponseBody
-	public boolean add(@ModelAttribute Invoice invoice) {
-		boolean result = false;
+	public String add(@ModelAttribute Invoice invoice, BindingResult result) {
+	    StringBuilder sb = new StringBuilder();
+	    if(result.hasErrors())  {
+	        for(ObjectError error: result.getAllErrors()) {
+                sb.append(error.toString());
+            }
+        }
+        else {
+            sb.append(invoice.toString());
+        }
 
-		try {
-			service.getInvoiceRepository().save(invoice);
-			result = true;
-		}
-		catch (Exception e) {
-			e.printStackTrace(); //TODO: how about this?
-		}
+        return sb.toString();
+	}
 
-		return result;
+	@GetMapping(path = "/add")
+	public String getForm(Model model) {
+		model.addAttribute("unusedOrders", service.getOrderRepository().findByInvoice(null));
+		model.addAttribute("invoice", new Invoice());
+
+		return "addInvoice";
 	}
 
 	@DeleteMapping(path = "/delete")
