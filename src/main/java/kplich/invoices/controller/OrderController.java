@@ -24,10 +24,27 @@ public class OrderController {
 		return "viewOrder";
 	}
 
-	@GetMapping(path = "/")
+	@GetMapping(path = "/get/all")
 	public String getAll(Model model) {
-        return service.viewOrders(model);
+	    model.addAttribute("orders", service.getOrderRepository().findAll());
+	    model.addAttribute("newOrder", new TransportOrder());
+
+		return "viewOrders";
 	}
+
+	@GetMapping(path = "/edit")
+    public String editOrder(@RequestParam int number, Model model) {
+	    Optional<TransportOrder> shouldBePresent = service.getOrderRepository().findById(number);
+
+	    if(shouldBePresent.isPresent()) {
+	        model.addAttribute("order", shouldBePresent.get());
+        }
+        else {
+            throw new IllegalArgumentException("There's no order with number " + number);
+        }
+
+        return "editOrder";
+    }
 
 	@GetMapping(path = "/get/invoice")
 	@ResponseBody
@@ -42,6 +59,13 @@ public class OrderController {
 		}
 	}
 
+	@GetMapping(path = "/add")
+	public String addOrUpdate(Model model) {
+	    model.addAttribute("newOrder", new TransportOrder());
+
+		return "editOrder";
+	}
+
 	@PostMapping(path = "/add")
 	public String addOrUpdate(@ModelAttribute TransportOrder order, Model model) {
 		try {
@@ -51,17 +75,24 @@ public class OrderController {
 			e.printStackTrace(); //TODO no to jak to logowac?
 		}
 
-        return service.viewOrders(model);
+		model.addAttribute("orders", service.getOrderRepository().findAll());
+		model.addAttribute("newOrder", new TransportOrder());
+
+		return "viewOrders";
 	}
 
-	@GetMapping(path = "/delete")
-	public String delete(@RequestParam int number, Model model) {
+	@DeleteMapping(path = "/delete")
+	@ResponseBody
+	public boolean delete(@RequestParam int number) {
+		boolean result = false;
+
 		Optional<TransportOrder> toBeDeleted = service.getOrderRepository().findById(number);
 
-		toBeDeleted.ifPresent(transportOrder -> service.getOrderRepository().delete(transportOrder));
+		if(toBeDeleted.isPresent()) {
+			service.getOrderRepository().delete(toBeDeleted.get());
+			result = true;
+		}
 
-		return service.viewOrders(model);
+		return result;
 	}
-
-
 }

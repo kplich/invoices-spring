@@ -4,7 +4,6 @@ import kplich.invoices.model.Invoice;
 import kplich.invoices.model.TransportOrder;
 import kplich.invoices.repository.*;
 import org.springframework.stereotype.*;
-import org.springframework.ui.Model;
 
 import java.util.Optional;
 
@@ -42,14 +41,6 @@ public class MainService {
             invoiceRepository.save(invoice);
         }
     }
-
-	public String viewOrders(Model model) {
-
-		model.addAttribute("orders", orderRepository.findAll());
-		model.addAttribute("newOrder", new TransportOrder());
-
-		return "viewOrders";
-	}
 
 
 }
