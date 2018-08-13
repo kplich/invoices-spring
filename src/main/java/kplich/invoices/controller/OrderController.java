@@ -24,12 +24,9 @@ public class OrderController {
 		return "viewOrder";
 	}
 
-	@GetMapping(path = "/get/all")
+	@GetMapping(path = "/")
 	public String getAll(Model model) {
-	    model.addAttribute("orders", service.getOrderRepository().findAll());
-	    model.addAttribute("newOrder", new TransportOrder());
-
-		return "viewOrders";
+        return service.viewOrders(model);
 	}
 
 	@GetMapping(path = "/get/invoice")
@@ -45,13 +42,6 @@ public class OrderController {
 		}
 	}
 
-	@GetMapping(path = "/add")
-	public String addOrUpdate(Model model) {
-	    model.addAttribute("newOrder", new TransportOrder());
-
-		return "addOrder";
-	}
-
 	@PostMapping(path = "/add")
 	public String addOrUpdate(@ModelAttribute TransportOrder order, Model model) {
 		try {
@@ -61,24 +51,17 @@ public class OrderController {
 			e.printStackTrace(); //TODO no to jak to logowac?
 		}
 
-		model.addAttribute("orders", service.getOrderRepository().findAll());
-		model.addAttribute("newOrder", new TransportOrder());
-
-		return "viewOrders";
+        return service.viewOrders(model);
 	}
 
-	@DeleteMapping(path = "/delete")
-	@ResponseBody
-	public boolean delete(@RequestParam int number) {
-		boolean result = false;
-
+	@GetMapping(path = "/delete")
+	public String delete(@RequestParam int number, Model model) {
 		Optional<TransportOrder> toBeDeleted = service.getOrderRepository().findById(number);
 
-		if(toBeDeleted.isPresent()) {
-			service.getOrderRepository().delete(toBeDeleted.get());
-			result = true;
-		}
+		toBeDeleted.ifPresent(transportOrder -> service.getOrderRepository().delete(transportOrder));
 
-		return result;
+		return service.viewOrders(model);
 	}
+
+
 }
