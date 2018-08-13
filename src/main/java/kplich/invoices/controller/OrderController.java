@@ -17,20 +17,39 @@ public class OrderController {
 		this.service = service;
 	}
 
-	@GetMapping(path = "/get")
+	//TODO: delete this?
+	/*@GetMapping(path = "/get")
 	public String getByNumber(@RequestParam int number, Model model) {
 		Optional<TransportOrder> result = service.getOrderRepository().findById(number);
+
+		if(result.isPresent()) {
+		    model.addAttribute("order", result.get());
+        }
 		model.addAttribute("order", result.get());
 		return "viewOrder";
-	}
+	}*/
 
-	@GetMapping(path = "/get/all")
+	@GetMapping(path = "/")
 	public String getAll(Model model) {
 	    model.addAttribute("orders", service.getOrderRepository().findAll());
 	    model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
+
+	@GetMapping(path = "/edit")
+    public String editOrder(@RequestParam int number, Model model) {
+	    Optional<TransportOrder> shouldBePresent = service.getOrderRepository().findById(number);
+
+	    if(shouldBePresent.isPresent()) {
+	        model.addAttribute("order", shouldBePresent.get());
+        }
+        else {
+            throw new IllegalArgumentException("There's no order with number " + number);
+        }
+
+        return "editOrder";
+    }
 
 	@GetMapping(path = "/get/invoice")
 	@ResponseBody
@@ -45,12 +64,13 @@ public class OrderController {
 		}
 	}
 
-	@GetMapping(path = "/add")
+	//TODO: delete this too?
+	/*@GetMapping(path = "/add")
 	public String addOrUpdate(Model model) {
 	    model.addAttribute("newOrder", new TransportOrder());
 
-		return "addOrder";
-	}
+		return "editOrder";
+	}*/
 
 	@PostMapping(path = "/add")
 	public String addOrUpdate(@ModelAttribute TransportOrder order, Model model) {
@@ -68,17 +88,14 @@ public class OrderController {
 	}
 
 	@DeleteMapping(path = "/delete")
-	@ResponseBody
-	public boolean delete(@RequestParam int number) {
-		boolean result = false;
-
+	public String delete(@RequestParam int number, Model model) {
 		Optional<TransportOrder> toBeDeleted = service.getOrderRepository().findById(number);
 
-		if(toBeDeleted.isPresent()) {
-			service.getOrderRepository().delete(toBeDeleted.get());
-			result = true;
-		}
+        toBeDeleted.ifPresent(transportOrder -> service.getOrderRepository().delete(transportOrder));
 
-		return result;
+		model.addAttribute("orders", service.getOrderRepository().findAll());
+		model.addAttribute("newOrder", new TransportOrder());
+
+		return "viewOrders";
 	}
 }
