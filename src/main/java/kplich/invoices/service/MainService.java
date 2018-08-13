@@ -42,6 +42,21 @@ public class MainService {
         }
     }
 
+    public Iterable<TransportOrder> getInvoiceOrders(String invoiceId) {
+	    Optional<Invoice> invoice = invoiceRepository.findById(invoiceId);
+
+	    if(invoice.isPresent()) {
+	        return getInvoiceOrders(invoice.get());
+        }
+        else {
+            throw new IllegalArgumentException("No invoice with ID " + invoiceId + " found.");
+        }
+    }
+
+    public Iterable<TransportOrder> getInvoiceOrders(Invoice invoice) {
+	   return orderRepository.findByInvoice(invoice);
+    }
+
     public void deleteOrder(int orderNumber) {
 
         Optional<TransportOrder> toBeDeleted = orderRepository.findById(orderNumber);
