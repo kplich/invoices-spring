@@ -42,5 +42,25 @@ public class MainService {
         }
     }
 
+    public void deleteOrder(int orderNumber) {
+
+        Optional<TransportOrder> toBeDeleted = orderRepository.findById(orderNumber);
+
+        if (toBeDeleted.isPresent()) {
+            TransportOrder found = toBeDeleted.get();
+
+            //if the order was in an invoice, delete it from its invoice first
+            if (found.getInvoice() != null) {
+                found.getInvoice().getOrders().remove(found);
+            }
+
+            //and then delete the order itself
+            orderRepository.delete(found);
+        }
+        else {
+            throw new IllegalArgumentException("There's no order with number " + orderNumber);
+        }
+    }
+
 
 }
