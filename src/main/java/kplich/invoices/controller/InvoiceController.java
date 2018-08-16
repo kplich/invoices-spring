@@ -23,8 +23,11 @@ public class InvoiceController {
 
 	@GetMapping
 	public String getAll(Model model) {
-
 	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
 
 		return "viewInvoices";
 	}
@@ -62,6 +65,9 @@ public class InvoiceController {
         }
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
 
         return "viewInvoices";
 	}
