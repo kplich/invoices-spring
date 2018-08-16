@@ -19,6 +19,9 @@ public class Invoice {
 	@DateTimeFormat (pattern = "yyyy-MM-dd")
 	private LocalDate saleDate;
 
+	@NotNull
+	private int paymentDays;
+
 	public Invoice() {
 	}
 
@@ -46,7 +49,17 @@ public class Invoice {
 		this.saleDate = saleDate;
 	}
 
-	@Override
+    public int getPaymentDays() {
+
+        return paymentDays;
+    }
+
+    public void setPaymentDays(int paymentDays) {
+
+        this.paymentDays = paymentDays;
+    }
+
+    @Override
 	public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder();
