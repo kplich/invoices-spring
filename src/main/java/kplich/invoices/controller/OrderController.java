@@ -30,7 +30,7 @@ public class OrderController {
 	}*/
 
 	@GetMapping
-	public String getAll(Model model) {
+	public String viewAllOrders(Model model) {
 
         model.addAttribute("orders", service.getOrderRepository().findAll());
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
