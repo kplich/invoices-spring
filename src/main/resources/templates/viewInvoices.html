@@ -18,5 +18,49 @@
             <td th:text="${invoice.saleDate}">2018-03-17</td>
         </tr>
     </table>
+    <h2>Add invoice:</h2>
+    <form action="/invoices/add" method="post">
+        <table>
+            <tr>
+                <th>
+                    Invoice ID:
+                </th>
+                <th>
+                    <input type="text" th:value="${invoice.invoiceId}" name="invoiceId"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Issue date:
+                </th>
+                <th>
+                    <input type="date" th:value="${invoice.issueDate}" name="issueDate"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Sale date:
+                </th>
+                <th>
+                    <input type="date" th:value="${invoice.saleDate}" name="saleDate">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Orders:
+                </th>
+                <th>
+                    <!-- TODO: nie dziala ;_; -->
+                    <select id="orders" th:field="${chosenOrders.chosenOrders}" multiple="multiple">
+                        <option th:each="unusedOrder: ${unusedOrders}"
+                                th:value="${unusedOrder.number}"
+                                th:text="${unusedOrder}">Unused orders to choose from
+                        </option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <button type="submit">Next</button>
+    </form>
 </body>
 </html>

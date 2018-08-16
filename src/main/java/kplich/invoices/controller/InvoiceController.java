@@ -22,9 +22,12 @@ public class InvoiceController {
 	}
 
 	@GetMapping
-	public String getAll(Model model) {
-
+	public String viewAllInvoices(Model model) {
 	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
 
 		return "viewInvoices";
 	}
@@ -34,16 +37,6 @@ public class InvoiceController {
 	public Optional<Invoice> getById(@RequestParam String id) {
 		return service.getInvoiceRepository().findById(id);
 	}
-
-    @GetMapping(path = "/add")
-    public String getForm(Model model) {
-
-        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
-
-        return "addInvoice";
-    }
 
 	@PostMapping(path = "/add")
 	public String addInvoice(@ModelAttribute Invoice invoice,
@@ -62,12 +55,22 @@ public class InvoiceController {
         }
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
 
         return "viewInvoices";
 	}
 
 	@DeleteMapping(path = "/delete")
-	public void deleteById(@RequestParam String id) {
+	public String deleteById(@RequestParam String id, Model model) {
 		service.deleteInvoice(id);
+
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
+
+        return "viewInvoices";
 	}
 }
