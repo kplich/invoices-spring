@@ -29,7 +29,7 @@ public class OrderController {
 		return "viewOrder";
 	}*/
 
-	@GetMapping(path = "/")
+	@GetMapping
 	public String getAll(Model model) {
 
         model.addAttribute("orders", service.getOrderRepository().findAll());

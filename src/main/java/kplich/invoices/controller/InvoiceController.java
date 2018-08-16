@@ -21,7 +21,7 @@ public class InvoiceController {
 		this.service = service;
 	}
 
-	@GetMapping (path = "/get/all")
+	@GetMapping
 	public String getAll(Model model) {
 
 	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
