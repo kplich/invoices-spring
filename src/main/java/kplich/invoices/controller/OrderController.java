@@ -31,8 +31,10 @@ public class OrderController {
 
 	@GetMapping(path = "/")
 	public String getAll(Model model) {
-	    model.addAttribute("orders", service.getOrderRepository().findAll());
-	    model.addAttribute("newOrder", new TransportOrder());
+
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
@@ -88,8 +90,9 @@ public class OrderController {
 			e.printStackTrace(); //TODO no to jak to logowac?
 		}
 
-		model.addAttribute("orders", service.getOrderRepository().findAll());
-		model.addAttribute("newOrder", new TransportOrder());
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
@@ -98,8 +101,9 @@ public class OrderController {
 	public String delete(@RequestParam int number, Model model) {
 		service.deleteOrder(number);
 
-		model.addAttribute("orders", service.getOrderRepository().findAll());
-		model.addAttribute("newOrder", new TransportOrder());
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}

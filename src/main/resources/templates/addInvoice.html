@@ -5,14 +5,14 @@
     <title>Add Invoice</title>
 </head>
 <body>
-    <form action="/invoices/add" th:object="${invoice}" method="post">
+    <form action="/invoices/add" method="post">
         <table>
             <tr>
                 <th>
                     Invoice ID:
                 </th>
                 <th>
-                    <input type="text" th:field="*{invoiceId}"/>
+                    <input type="text" th:value="${invoice.invoiceId}" name="invoiceId"/>
                 </th>
             </tr>
             <tr>
@@ -20,7 +20,7 @@
                     Issue date:
                 </th>
                 <th>
-                    <input type="date" th:field="*{issueDate}"/>
+                    <input type="date" th:value="${invoice.issueDate}" name="issueDate"/>
                 </th>
             </tr>
             <tr>
@@ -28,7 +28,7 @@
                     Sale date:
                 </th>
                 <th>
-                    <input type="date" th:field="*{saleDate}">
+                    <input type="date" th:value="${invoice.saleDate}" name="saleDate">
                 </th>
             </tr>
             <tr>
@@ -36,10 +36,11 @@
                     Orders:
                 </th>
                 <th>
-                    <select multiple="multiple" th:field="*{orders}">
-                        <option th:each="order : ${unusedOrders}"
-                                th:value="${order.number}"
-                                th:text="${order.toString()}">Possible orders</option>
+                    <!-- TODO: nie dziala ;_; -->
+                    <select id="orders" th:field="${chosenOrders.chosenOrders}" multiple="multiple">
+                        <option th:each="unusedOrder: ${unusedOrders}"
+                                th:value="${unusedOrder.number}"
+                                th:text="${unusedOrder}">Unused orders to choose from</option>
                     </select>
                 </th>
             </tr>
