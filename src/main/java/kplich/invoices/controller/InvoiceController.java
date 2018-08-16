@@ -35,9 +35,21 @@ public class InvoiceController {
 		return service.getInvoiceRepository().findById(id);
 	}
 
-	//TODO: do we need the methods to return anything?
+    @GetMapping(path = "/add")
+    public String getForm(Model model) {
+
+        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
+        model.addAttribute("invoice", new Invoice());
+
+        return "addInvoice";
+    }
+
 	@PostMapping(path = "/add")
-	public String add(@ModelAttribute Invoice invoice, BindingResult result, Model model) {
+	public String addInvoice(@ModelAttribute Invoice invoice,
+                             BindingResult result,
+                             @ModelAttribute ChosenOrdersDTO chosenOrders,
+                             Model model) {
 
 	    if(result.hasErrors())  {
 	        for(ObjectError error: result.getAllErrors()) {
@@ -46,23 +58,16 @@ public class InvoiceController {
             }
         }
         else {
-            service.saveInvoice(invoice);
+            service.saveInvoice(invoice, chosenOrders.getChosenOrders());
         }
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+
         return "viewInvoices";
-	}
-
-	@GetMapping(path = "/add")
-	public String getForm(Model model) {
-		model.addAttribute("unusedOrders", service.getOrderRepository().findByInvoice(null));
-		model.addAttribute("invoice", new Invoice());
-
-		return "addInvoice";
 	}
 
 	@DeleteMapping(path = "/delete")
 	public void deleteById(@RequestParam String id) {
-		service.getInvoiceRepository().deleteById(id);
+		service.deleteInvoice(id);
 	}
 }

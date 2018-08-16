@@ -4,7 +4,9 @@ import kplich.invoices.model.Invoice;
 import kplich.invoices.model.TransportOrder;
 import kplich.invoices.repository.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.Model;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +27,7 @@ public class MainService {
 		return orderRepository;
 	}
 
-	public void saveInvoice(Invoice invoice) {
+	public void saveInvoice(Invoice invoice, List<TransportOrder> orders) {
 
 	    String id = invoice.getInvoiceId();
         Optional<Invoice> shouldNotBePresent = invoiceRepository.findById(id);
@@ -34,12 +36,68 @@ public class MainService {
             throw new IllegalArgumentException("Invoice with given ID already exists!");
         }
         else {
-            for (TransportOrder order : invoice.getOrders()) {
+            invoiceRepository.save(invoice);
+
+
+            for(TransportOrder order: orders) {
                 order.setInvoice(invoice);
+                orderRepository.save(order);
+            }
+        }
+    }
+
+    public void deleteInvoice(String id) {
+	    Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
+
+	    if(optionalInvoice.isPresent()) {
+	        Invoice found = optionalInvoice.get();
+
+	        Iterable<TransportOrder> orders = orderRepository.findByInvoice(found);
+
+	        for(TransportOrder order: orders) {
+	            order.setInvoice(null);
+	            orderRepository.save(order);
             }
 
-            invoiceRepository.save(invoice);
+            invoiceRepository.delete(found);
+
+        } else {
+	        throw new IllegalArgumentException("Invoice with ID " + id + " doesn't exist.");
         }
+    }
+
+    /*public Iterable<TransportOrder> getInvoiceOrders(String invoiceId) {
+	    Optional<Invoice> invoice = invoiceRepository.findById(invoiceId);
+
+	    if(invoice.isPresent()) {
+	        return getInvoiceOrders(invoice.get());
+        }
+        else {
+            throw new IllegalArgumentException("No invoice with ID " + invoiceId + " found.");
+        }
+    }*/
+
+    public Iterable<TransportOrder> getInvoiceOrders(Invoice invoice) {
+	   return orderRepository.findByInvoice(invoice);
+    }
+
+    public void deleteOrder(int orderNumber) {
+
+        Optional<TransportOrder> toBeDeleted = orderRepository.findById(orderNumber);
+
+        if (toBeDeleted.isPresent()) {
+            TransportOrder found = toBeDeleted.get();
+            orderRepository.delete(found);
+        }
+        else {
+            throw new IllegalArgumentException("There's no order with number " + orderNumber);
+        }
+    }
+
+    public void injectData(Model model) {
+        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("invoices", invoiceRepository.findAll());
+        model.addAttribute("newOrder", new TransportOrder());
     }
 
 

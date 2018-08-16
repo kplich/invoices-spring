@@ -19,7 +19,7 @@ public class TransportOrder {
 	@NotNull
 	private BigDecimal value;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Invoice invoice;
 
 	//for JPA or sth?

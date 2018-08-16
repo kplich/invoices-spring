@@ -31,8 +31,10 @@ public class OrderController {
 
 	@GetMapping(path = "/")
 	public String getAll(Model model) {
-	    model.addAttribute("orders", service.getOrderRepository().findAll());
-	    model.addAttribute("newOrder", new TransportOrder());
+
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
@@ -42,7 +44,13 @@ public class OrderController {
 	    Optional<TransportOrder> shouldBePresent = service.getOrderRepository().findById(number);
 
 	    if(shouldBePresent.isPresent()) {
-	        model.addAttribute("order", shouldBePresent.get());
+	        TransportOrder order = shouldBePresent.get(); //get the chosen order
+
+	        service.getOrderRepository().delete(order); //delete it from the repository
+
+	        order.setInvoice(null); //clear its invoice
+
+	        model.addAttribute("order", order); //put it into the form
         }
         else {
             throw new IllegalArgumentException("There's no order with number " + number);
@@ -51,7 +59,8 @@ public class OrderController {
         return "editOrder";
     }
 
-	@GetMapping(path = "/get/invoice")
+    //TODO: delete this too?
+	/*@GetMapping(path = "/get/invoice")
 	@ResponseBody
 	public Iterable<TransportOrder> getByInvoice(@RequestParam String invoiceId) {
 		Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
@@ -62,7 +71,7 @@ public class OrderController {
 		else {
 			throw new IllegalArgumentException("There's no invoice with given ID.");
 		}
-	}
+	}*/
 
 	//TODO: delete this too?
 	/*@GetMapping(path = "/add")
@@ -81,20 +90,20 @@ public class OrderController {
 			e.printStackTrace(); //TODO no to jak to logowac?
 		}
 
-		model.addAttribute("orders", service.getOrderRepository().findAll());
-		model.addAttribute("newOrder", new TransportOrder());
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
 
-	@DeleteMapping(path = "/delete")
+	@GetMapping(path = "/delete")
 	public String delete(@RequestParam int number, Model model) {
-		Optional<TransportOrder> toBeDeleted = service.getOrderRepository().findById(number);
+		service.deleteOrder(number);
 
-        toBeDeleted.ifPresent(transportOrder -> service.getOrderRepository().delete(transportOrder));
-
-		model.addAttribute("orders", service.getOrderRepository().findAll());
-		model.addAttribute("newOrder", new TransportOrder());
+        model.addAttribute("orders", service.getOrderRepository().findAll());
+        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
 	}
