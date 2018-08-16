@@ -24,10 +24,8 @@ public class InvoiceController {
 	@GetMapping
 	public String viewAllInvoices(Model model) {
 	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
 		return "viewInvoices";
 	}
@@ -39,9 +37,8 @@ public class InvoiceController {
 	}
 
 	@PostMapping(path = "/add")
-	public String addInvoice(@ModelAttribute Invoice invoice,
+	public String addInvoice(@ModelAttribute InvoiceInputDTO invoiceDTO,
                              BindingResult result,
-                             @ModelAttribute ChosenOrdersDTO chosenOrders,
                              Model model) {
 
 	    if(result.hasErrors())  {
@@ -51,13 +48,12 @@ public class InvoiceController {
             }
         }
         else {
-            service.saveInvoice(invoice, chosenOrders.getChosenOrders());
+            service.saveInvoice(invoiceDTO.getInvoice(), invoiceDTO.getOrders());
         }
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";
 	}
@@ -68,8 +64,7 @@ public class InvoiceController {
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";
 	}
