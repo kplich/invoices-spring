@@ -10,13 +10,13 @@
     <tbody>
     <tr>
         <td>
-            <p><strong>FAKTURA VAT</strong></p>
+            <h2>FAKTURA VAT</h2>
         </td>
         <td>
-            <p th:text="|FV ${invoiceDTO.getInvoice().getInvoiceId()}|">FV 1/2018</p>
+            <h3 th:text="|FV ${invoiceDTO.getInvoice().getInvoiceId()}|">FV 1/2018</h3>
         </td>
         <td>
-            <p>Oryginał/Kopia</p>
+            Oryginał/Kopia
         </td>
     </tr>
     </tbody>
@@ -24,27 +24,27 @@
 <table width="100%">
     <tbody>
     <tr>
-        <td>
+        <td style="text-align: right; vertical-align: top; width: 10%">
             <strong>Sprzedawca:</strong>
         </td>
-        <td>
+        <td style="width: 40%">
             Firma Handlowo-Usługowa KAMRO<br/> Włodzimierz Plich
         </td>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>Nabywca:</strong>
         </td>
         <td>
-            Transforwarding International sp. z o.o.
+            Transforwarding International sp.&nbsp;z&nbsp;o.o.
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right; vertical-align: top; width: 10%">
             <strong>Adres:</strong>
         </td>
-        <td>
+        <td style="width: 40%">
             ul. Jana Pawła II 41<br/> 97-320 Swolszewice Duże
         </td>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>Adres:</strong>
         </td>
         <td>
@@ -52,13 +52,13 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>NIP:</strong>
         </td>
         <td>
             7711012886
         </td>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>NIP:</strong>
         </td>
         <td>
@@ -66,7 +66,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>Bank:</strong>
         </td>
         <td>
@@ -80,7 +80,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right; vertical-align: top;">
             <strong>Konto:</strong>
         </td>
         <td>
@@ -99,7 +99,7 @@
 <table>
     <tbody>
     <tr>
-        <td>
+        <td style="text-align: right">
             <strong>Data sprzedaży:</strong>
         </td>
         <td>
@@ -107,7 +107,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right">
             <strong>Spos&oacute;b zapłaty:</strong>
         </td>
         <td>
@@ -115,7 +115,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right">
             <strong>Termin płatności:</strong>
         </td>
         <td>
@@ -123,7 +123,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="text-align: right">
             <strong>Transport:</strong>
         </td>
         <td>
@@ -133,40 +133,42 @@
     </tbody>
 </table>
 <p>&nbsp;</p>
-<table>
+<table style="border: 10px black; width: 100%;">
     <tbody>
-    <tr>
-        <td>
-            <strong>Lp.</strong>
-        </td>
-        <td>
-            <strong>Nazwa</strong>
-        </td>
-        <td>
-            <strong>J. m.</strong>
-        </td>
-        <td>
-            <strong>Ilość</strong>
-        </td>
-        <td>
-            <strong>Cena netto [zł]</strong>
-        </td>
-        <td>
-            <strong>VAT</strong>
-        </td>
-        <td>
-            <strong>Wartość VAT [zł]</strong>
-        </td>
-        <td>
-            <strong>Wartość netto [zł]</strong>
-        </td>
-    </tr>
-    <tr th:each="orderDTO, iStat: ${invoiceDTO.getOrders()}">
+    <thead style="text-align: center">
+        <tr style="border-bottom: 1px solid #dddddd">
+            <th style="width: 5%;">
+                <strong>Lp.</strong>
+            </th>
+            <th style="width: 30%">
+                <strong>Nazwa</strong>
+            </th>
+            <th style="width: 10%">
+                <strong>J. m.</strong>
+            </th>
+            <th style="width: 5%; ">
+                <strong>Ilość</strong>
+            </th>
+            <th style="width: 15%; ">
+                <strong>Cena netto&nbsp;[zł]</strong>
+            </th>
+            <th style="width: 5%; ">
+                <strong>VAT</strong>
+            </th>
+            <th style="width: 15%; ">
+                <strong>Wartość VAT&nbsp;[zł]</strong>
+            </th>
+            <th style="width: 15%; ">
+                <strong>Wartość netto&nbsp;[zł]</strong>
+            </th>
+        </tr>
+    </thead>
+    <tr style="text-align: center; " th:each="orderDTO, iStat: ${invoiceDTO.getOrders()}">
         <td>
             <div th:text="${iStat.index + 1}">1</div>
         </td>
         <td>
-            <div th:text="${orderDTO.getOrder().toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</div>
+            <div th:utext="${orderDTO.getOrder().toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</div>
         </td>
         <td>
             szt.
@@ -190,22 +192,24 @@
     </tbody>
 </table>
 <p>&nbsp;</p>
-<table>
+<table style="width: 50%; text-align: center">
+    <thead>
+        <tr>
+            <th>
+                <strong>Stawka</strong>
+            </th>
+            <th>
+                <strong>Netto&nbsp;[zł]</strong>
+            </th>
+            <th>
+                <strong>VAT&nbsp;[zł]</strong>
+            </th>
+            <th>
+                <strong>Brutto&nbsp;[zł]</strong>
+            </th>
+        </tr>
+    </thead>
     <tbody>
-    <tr>
-        <td>
-            <strong>Stawka</strong>
-        </td>
-        <td>
-            <strong>Netto</strong>
-        </td>
-        <td>
-            <strong>VAT</strong>
-        </td>
-        <td>
-            <strong>Brutto</strong>
-        </td>
-    </tr>
     <tr>
         <td>
             23%
@@ -247,18 +251,10 @@
             <div th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</div>
         </td>
     </tr>
-    <tr>
-        <td>
-            <strong>Słownie:</strong>
-        </td>
-        <td>
-            sumaBruttoSlownie
-        </td>
-    </tr>
     </tbody>
 </table>
 <p>&nbsp;</p>
-<table>
+<table width="100%">
     <tbody>
     <tr>
         <td>

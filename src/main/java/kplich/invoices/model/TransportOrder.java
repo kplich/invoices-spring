@@ -110,7 +110,6 @@ public class TransportOrder {
 
 	@Override
 	public String toString() {
-		return "number: " + number + ",\nloading location: " + loadingLocation + ",\nunloading location: " +
-			   unloadingLocation + ",\nvalue: " + value.toString();
+		return "usługa transportowa " + number + "\n" + loadingLocation + " - " + unloadingLocation;
 	}
 }
