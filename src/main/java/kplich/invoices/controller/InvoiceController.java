@@ -36,7 +36,7 @@ public class InvoiceController {
 	    if(optionalInvoice.isPresent()) {
 	        Invoice invoice = optionalInvoice.get();
 
-	        outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceOrders(invoice));
+	        outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceDTOOrders(invoice));
 
         }
         else {

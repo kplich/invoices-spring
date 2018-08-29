@@ -70,7 +70,7 @@ public class TransportOrder {
 		this.value = value;
 	}
 
-    public void setInvoice(Invoice invoice) {
+	public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
 

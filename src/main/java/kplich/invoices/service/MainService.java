@@ -2,10 +2,12 @@ package kplich.invoices.service;
 
 import kplich.invoices.model.Invoice;
 import kplich.invoices.model.TransportOrder;
+import kplich.invoices.model.TransportOrderDTO;
 import kplich.invoices.repository.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +81,17 @@ public class MainService {
 
     public Iterable<TransportOrder> getInvoiceOrders(Invoice invoice) {
 	   return orderRepository.findByInvoice(invoice);
+    }
+
+    public Iterable<TransportOrderDTO> getInvoiceDTOOrders(Invoice invoice) {
+
+        ArrayList<TransportOrderDTO> orderDTOS = new ArrayList<>();
+
+        for(TransportOrder order: orderRepository.findByInvoice(invoice)) {
+            orderDTOS.add(new TransportOrderDTO(order));
+        }
+
+        return orderDTOS;
     }
 
     public void deleteOrder(int orderNumber) {
