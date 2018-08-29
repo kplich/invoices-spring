@@ -19,14 +19,14 @@
         </tr>
     </table>
     <h2>Add invoice:</h2>
-    <form action="/invoices/add" method="post">
+    <form action="/invoices/add" th:object="${clearInvoice}" method="post">
         <table>
             <tr>
                 <th>
                     Invoice ID:
                 </th>
                 <th>
-                    <input type="text" th:value="${invoice.invoiceId}" name="invoiceId"/>
+                    <input type="text" th:field="*{invoice.invoiceId}" name="invoiceId"/>
                 </th>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                     Issue date:
                 </th>
                 <th>
-                    <input type="date" th:value="${invoice.issueDate}" name="issueDate"/>
+                    <input type="date" th:field="*{invoice.issueDate}" name="issueDate"/>
                 </th>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                     Sale date:
                 </th>
                 <th>
-                    <input type="date" th:value="${invoice.saleDate}" name="saleDate">
+                    <input type="date" th:field="*{invoice.saleDate}" name="saleDate">
                 </th>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
                     Days until payment:
                 </th>
                 <th>
-                    <input type="number" th:value="${invoice.paymentDays}" name="paymentDays">
+                    <input type="number" th:field="*{invoice.paymentDays}" name="paymentDays">
                 </th>
             </tr>
             <tr>
@@ -58,8 +58,7 @@
                     Orders:
                 </th>
                 <th>
-                    <!-- TODO: nie dziala ;_; -->
-                    <select id="orders" th:field="${chosenOrders.chosenOrders}" multiple="multiple">
+                    <select id="orders" th:field="*{orders}" multiple="multiple">
                         <option th:each="unusedOrder: ${unusedOrders}"
                                 th:value="${unusedOrder.number}"
                                 th:text="${unusedOrder}">Unused orders to choose from

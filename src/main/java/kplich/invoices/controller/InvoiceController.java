@@ -1,9 +1,7 @@
 package kplich.invoices.controller;
 
 import kplich.invoices.model.*;
-import kplich.invoices.repository.*;
 import kplich.invoices.service.*;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,24 +22,35 @@ public class InvoiceController {
 	@GetMapping
 	public String viewAllInvoices(Model model) {
 	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
 		return "viewInvoices";
 	}
 
 	@GetMapping(path = "/get")
-    @ResponseBody
-	public Optional<Invoice> getById(@RequestParam String id) {
-		return service.getInvoiceRepository().findById(id);
+	public String getById(@RequestParam String id, Model model) {
+	    InvoiceOutputDTO outputDTO;
+	    Optional<Invoice> optionalInvoice = service.getInvoiceRepository().findById(id);
+
+	    if(optionalInvoice.isPresent()) {
+	        Invoice invoice = optionalInvoice.get();
+
+	        outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceOrders(invoice));
+
+        }
+        else {
+            throw new IllegalArgumentException("There's no invoice with id " + id);
+        }
+
+		model.addAttribute("invoiceDTO", outputDTO);
+
+		return "viewInvoice";
 	}
 
 	@PostMapping(path = "/add")
-	public String addInvoice(@ModelAttribute Invoice invoice,
+	public String addInvoice(@ModelAttribute InvoiceInputDTO invoiceDTO,
                              BindingResult result,
-                             @ModelAttribute ChosenOrdersDTO chosenOrders,
                              Model model) {
 
 	    if(result.hasErrors())  {
@@ -51,13 +60,12 @@ public class InvoiceController {
             }
         }
         else {
-            service.saveInvoice(invoice, chosenOrders.getChosenOrders());
+            service.saveInvoice(invoiceDTO.getInvoice(), invoiceDTO.getOrders());
         }
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";
 	}
@@ -68,8 +76,7 @@ public class InvoiceController {
 
         model.addAttribute("invoices", service.getInvoiceRepository().findAll());
         model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
-        model.addAttribute("chosenOrders", new ChosenOrdersDTO(new ArrayList<>()));
-        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";
 	}
