@@ -164,12 +164,12 @@
             <p><strong>Wartość netto [zł]</strong></p>
         </td>
     </tr>
-    <tr th:each="order, iStat: ${invoiceDTO.getOrders()}">
+    <tr th:each="orderDTO, iStat: ${invoiceDTO.getOrders()}">
         <td width="36">
             <p th:text="${iStat.index + 1}">1</p>
         </td>
         <td width="200">
-            <p th:text="${order.toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</p>
+            <p th:text="${orderDTO.getOrder().toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</p>
         </td>
         <td width="47">
             <p>szt.</p>
@@ -178,17 +178,17 @@
             <p>1</p>
         </td>
         <td width="77">
-            <p th:text="${order.getValue()}">4190,29</p>
+            <p th:text="${orderDTO.getOrder().getValue()}">4190,29</p>
         </td>
         <td width="46">
             <p>23%</p>
         </td>
         <td width="76">
             <!-- TODO: get a taxed value from an order -->
-            <p>xxx.xx</p>
+            <p th:text="${orderDTO.getTaxValue()}">xxx.xx</p>
         </td>
         <td width="75">
-            <p th:text="${order.getValue()}">4190,29</p>
+            <p th:text="${orderDTO.getOrder().getValue()}">4190,29</p>
         </td>
     </tr>
     </tbody>
