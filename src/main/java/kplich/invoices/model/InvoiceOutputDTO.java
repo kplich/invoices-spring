@@ -2,10 +2,13 @@ package kplich.invoices.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.time.LocalDate;
 import java.util.List;
 
 public class InvoiceOutputDTO {
+    private static final BigDecimal TAX_VALUE = new BigDecimal("0.23");
+
     private final Invoice invoice;
     private final List<TransportOrder> orders;
 
@@ -20,10 +23,19 @@ public class InvoiceOutputDTO {
 
         paymentDate = this.invoice.getSaleDate().plusDays(this.invoice.getPaymentDays());
 
+
+
         //TODO: value sums
-        nettoSum = new BigDecimal(BigInteger.ZERO);
-        taxSum = new BigDecimal(BigInteger.ZERO);
-        bruttoSum = new BigDecimal(BigInteger.ZERO);
+        nettoSum = orders.stream()
+                           .map(TransportOrder::getValue)
+                           .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        taxSum = orders.stream()
+                         .map(TransportOrder::getValue)
+                         .map(d -> d.multiply(TAX_VALUE, new MathContext(2)))
+                         .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        bruttoSum = nettoSum.add(taxSum);
     }
 
     public InvoiceOutputDTO(InvoiceInputDTO invoiceDTO) {
@@ -33,9 +45,16 @@ public class InvoiceOutputDTO {
         paymentDate = this.invoice.getSaleDate().plusDays(this.invoice.getPaymentDays());
 
         //TODO: value sums
-        nettoSum = new BigDecimal(BigInteger.ZERO);
-        taxSum = new BigDecimal(BigInteger.ZERO);
-        bruttoSum = new BigDecimal(BigInteger.ZERO);
+        nettoSum = orders.stream()
+                           .map(TransportOrder::getValue)
+                           .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        taxSum = orders.stream()
+                         .map(TransportOrder::getValue)
+                         .map(d -> d.multiply(TAX_VALUE, new MathContext(2)))
+                         .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        bruttoSum = nettoSum.add(taxSum);
     }
 
     public Invoice getInvoice() {
