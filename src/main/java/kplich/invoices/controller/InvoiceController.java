@@ -1,9 +1,7 @@
 package kplich.invoices.controller;
 
 import kplich.invoices.model.*;
-import kplich.invoices.repository.*;
 import kplich.invoices.service.*;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,9 +29,23 @@ public class InvoiceController {
 	}
 
 	@GetMapping(path = "/get")
-    @ResponseBody
-	public Optional<Invoice> getById(@RequestParam String id) {
-		return service.getInvoiceRepository().findById(id);
+	public String getById(@RequestParam String id, Model model) {
+	    InvoiceOutputDTO outputDTO;
+	    Optional<Invoice> optionalInvoice = service.getInvoiceRepository().findById(id);
+
+	    if(optionalInvoice.isPresent()) {
+	        Invoice invoice = optionalInvoice.get();
+
+	        outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceOrders(invoice));
+
+        }
+        else {
+            throw new IllegalArgumentException("There's no invoice with id " + id);
+        }
+
+		model.addAttribute("invoiceDTO", outputDTO);
+
+		return "viewInvoice";
 	}
 
 	@PostMapping(path = "/add")
