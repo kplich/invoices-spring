@@ -5,6 +5,7 @@
     <title>Invoices</title>
 </head>
 <body>
+    <h1>All invoices:</h1>
     <table>
         <tr>
             <th>ID</th>
@@ -17,5 +18,56 @@
             <td th:text="${invoice.saleDate}">2018-03-17</td>
         </tr>
     </table>
+    <h2>Add invoice:</h2>
+    <form action="/invoices/add" th:object="${clearInvoice}" method="post">
+        <table>
+            <tr>
+                <th>
+                    Invoice ID:
+                </th>
+                <th>
+                    <input type="text" th:field="*{invoice.invoiceId}" name="invoiceId"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Issue date:
+                </th>
+                <th>
+                    <input type="date" th:field="*{invoice.issueDate}" name="issueDate"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Sale date:
+                </th>
+                <th>
+                    <input type="date" th:field="*{invoice.saleDate}" name="saleDate">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Days until payment:
+                </th>
+                <th>
+                    <input type="number" th:field="*{invoice.paymentDays}" name="paymentDays">
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Orders:
+                </th>
+                <th>
+                    <select id="orders" th:field="*{orders}" multiple="multiple">
+                        <option th:each="unusedOrder: ${unusedOrders}"
+                                th:value="${unusedOrder.number}"
+                                th:text="${unusedOrder}">Unused orders to choose from
+                        </option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <button type="submit">Next</button>
+    </form>
 </body>
 </html>

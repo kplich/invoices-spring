@@ -5,12 +5,12 @@
     <title>Add New Order</title>
 </head>
 <body>
-    <form method="post" action="/orders/add" th:object="${newOrder}">
+    <form method="post" action="/orders/add" th:object="${order}">
         <table>
             <tr>
                 <th>Number:</th>
                 <td>
-                    <input type="number" th:field="*{number}"/>
+                    <input readonly="readonly" type="number" th:field="*{number}"/>
                 </td>
             </tr>
             <tr>

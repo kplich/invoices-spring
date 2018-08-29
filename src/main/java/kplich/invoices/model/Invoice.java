@@ -5,7 +5,6 @@ import org.springframework.format.annotation.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.*;
-import java.util.List;
 
 @Entity
 public class Invoice {
@@ -21,8 +20,7 @@ public class Invoice {
 	private LocalDate saleDate;
 
 	@NotNull
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<TransportOrder> orders;
+	private int paymentDays;
 
 	public Invoice() {
 	}
@@ -51,17 +49,17 @@ public class Invoice {
 		this.saleDate = saleDate;
 	}
 
-    public List<TransportOrder> getOrders() {
+    public int getPaymentDays() {
 
-        return orders;
+        return paymentDays;
     }
 
-    public void setOrders(List<TransportOrder> orders) {
+    public void setPaymentDays(int paymentDays) {
 
-        this.orders = orders;
+        this.paymentDays = paymentDays;
     }
 
-	@Override
+    @Override
 	public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -70,11 +68,6 @@ public class Invoice {
                 .append(issueDate.toString())
                 .append(", ")
                 .append(saleDate.toString());
-
-        for(TransportOrder order: orders) {
-            stringBuilder.append(order.getNumber());
-            stringBuilder.append(", ");
-        }
 
         return stringBuilder.toString();
 	}
