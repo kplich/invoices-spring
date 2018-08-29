@@ -5,95 +5,92 @@
     <title>Title</title>
 </head>
 <body>
-<p>Swolszewice Duże, </p>
-<p th:text="${invoiceDTO.getInvoice().getIssueDate()}">01-01-2018</p>
-<table>
+<p style="text-align: right;" th:text="|Swolszewice Duże, ${invoiceDTO.getInvoice().getIssueDate()}|">Swolszewice Duże, 01-01-2018</p>
+<table width="100%">
     <tbody>
     <tr>
-        <td width="201">
+        <td>
             <p><strong>FAKTURA VAT</strong></p>
         </td>
-        <td width="201">
-            <p>FV:</p>
-            <p th:text="${invoiceDTO.getInvoice().getInvoiceId()}">1/2018</p>
+        <td>
+            <p th:text="|FV ${invoiceDTO.getInvoice().getInvoiceId()}|">FV 1/2018</p>
         </td>
-        <td width="201">
+        <td>
             <p>Oryginał/Kopia</p>
         </td>
     </tr>
     </tbody>
 </table>
-<p>&nbsp;</p>
-<table>
+<table width="100%">
     <tbody>
     <tr>
-        <td width="89">
-            <p><strong>Sprzedawca:</strong></p>
+        <td>
+            <strong>Sprzedawca:</strong>
         </td>
-        <td width="222">
-            <p>Firma Handlowo-Usługowa KAMRO<br/> Włodzimierz Plich</p>
+        <td>
+            Firma Handlowo-Usługowa KAMRO<br/> Włodzimierz Plich
         </td>
-        <td width="66">
-            <p><strong>Nabywca:</strong></p>
+        <td>
+            <strong>Nabywca:</strong>
         </td>
-        <td width="226">
-            <p>Transforwarding International sp. z o.o.</p>
-        </td>
-    </tr>
-    <tr>
-        <td width="89">
-            <p><strong>Adres:</strong></p>
-        </td>
-        <td width="222">
-            <p>ul. Jana Pawła II 41<br/> 97-320 Swolszewice Duże</p>
-        </td>
-        <td width="66">
-            <p><strong>Adres:</strong></p>
-        </td>
-        <td width="226">
-            <p>ul. Na Skraju 73A<br/> 05-090 Raszyn</p>
+        <td>
+            Transforwarding International sp. z o.o.
         </td>
     </tr>
     <tr>
-        <td width="89">
-            <p><strong>NIP:</strong></p>
+        <td>
+            <strong>Adres:</strong>
         </td>
-        <td width="222">
-            <p>7711012886</p>
+        <td>
+            ul. Jana Pawła II 41<br/> 97-320 Swolszewice Duże
         </td>
-        <td width="66">
-            <p><strong>NIP:</strong></p>
+        <td>
+            <strong>Adres:</strong>
         </td>
-        <td width="226">
-            <p>PL5342147482</p>
-        </td>
-    </tr>
-    <tr>
-        <td width="89">
-            <p><strong>Bank:</strong></p>
-        </td>
-        <td width="222">
-            <p>BGŻ BNP Paribas S.A. oddział w&nbsp;Tomaszowie Maz.</p>
-        </td>
-        <td width="66">
-            <p><strong>&nbsp;</strong></p>
-        </td>
-        <td width="226">
-            <p>&nbsp;</p>
+        <td>
+            ul. Na Skraju 73A<br/> 05-090 Raszyn
         </td>
     </tr>
     <tr>
-        <td width="89">
-            <p><strong>Konto:</strong></p>
+        <td>
+            <strong>NIP:</strong>
         </td>
-        <td width="222">
-            <p>79160014621833071520000001</p>
+        <td>
+            7711012886
         </td>
-        <td width="66">
-            <p><strong>&nbsp;</strong></p>
+        <td>
+            <strong>NIP:</strong>
         </td>
-        <td width="226">
-            <p>&nbsp;</p>
+        <td>
+            PL5342147482
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Bank:</strong>
+        </td>
+        <td>
+            BGŻ BNP Paribas S.A. oddział w&nbsp;Tomaszowie Maz.
+        </td>
+        <td>
+            <strong>&nbsp;</strong>
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Konto:</strong>
+        </td>
+        <td>
+            79160014621833071520000001
+        </td>
+        <td>
+            <strong>&nbsp;</strong>
+        </td>
+        <td>
+            &nbsp;
         </td>
     </tr>
     </tbody>
@@ -102,35 +99,35 @@
 <table>
     <tbody>
     <tr>
-        <td width="123">
-            <p><strong>Data sprzedaży:</strong></p>
+        <td>
+            <strong>Data sprzedaży:</strong>
         </td>
-        <td width="104">
-            <p th:text="${invoiceDTO.getInvoice().getSaleDate()}">dataSprzedazy>01-01-2018</p>
-        </td>
-    </tr>
-    <tr>
-        <td width="123">
-            <p><strong>Spos&oacute;b zapłaty:</strong></p>
-        </td>
-        <td width="104">
-            <p>przelew</p>
+        <td>
+            <div th:text="${invoiceDTO.getInvoice().getSaleDate()}">01-01-2018</div>
         </td>
     </tr>
     <tr>
-        <td width="123">
-            <p><strong>Termin płatności:</strong></p>
+        <td>
+            <strong>Spos&oacute;b zapłaty:</strong>
         </td>
-        <td width="104">
-            <p th:text="${invoiceDTO.getPaymentDate()}">31-01-2018</p>
+        <td>
+            przelew
         </td>
     </tr>
     <tr>
-        <td width="123">
-            <p><strong>Transport:</strong></p>
+        <td>
+            <strong>Termin płatności:</strong>
         </td>
-        <td width="104">
-            <p>własny</p>
+        <td>
+            <div th:text="${invoiceDTO.getPaymentDate()}">31-01-2018</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Transport:</strong>
+        </td>
+        <td>
+            własny
         </td>
     </tr>
     </tbody>
@@ -139,103 +136,55 @@
 <table>
     <tbody>
     <tr>
-        <td width="36">
-            <p><strong>Lp.</strong></p>
+        <td>
+            <strong>Lp.</strong>
         </td>
-        <td width="200">
-            <p><strong>Nazwa</strong></p>
+        <td>
+            <strong>Nazwa</strong>
         </td>
-        <td width="47">
-            <p><strong>J. m.</strong></p>
+        <td>
+            <strong>J. m.</strong>
         </td>
-        <td width="47">
-            <p><strong>Ilość</strong></p>
+        <td>
+            <strong>Ilość</strong>
         </td>
-        <td width="77">
-            <p><strong>Cena netto [zł]</strong></p>
+        <td>
+            <strong>Cena netto [zł]</strong>
         </td>
-        <td width="46">
-            <p><strong>VAT</strong></p>
+        <td>
+            <strong>VAT</strong>
         </td>
-        <td width="76">
-            <p><strong>Wartość VAT [zł]</strong></p>
+        <td>
+            <strong>Wartość VAT [zł]</strong>
         </td>
-        <td width="75">
-            <p><strong>Wartość netto [zł]</strong></p>
+        <td>
+            <strong>Wartość netto [zł]</strong>
         </td>
     </tr>
     <tr th:each="orderDTO, iStat: ${invoiceDTO.getOrders()}">
-        <td width="36">
-            <p th:text="${iStat.index + 1}">1</p>
+        <td>
+            <div th:text="${iStat.index + 1}">1</div>
         </td>
-        <td width="200">
-            <p th:text="${orderDTO.getOrder().toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</p>
+        <td>
+            <div th:text="${orderDTO.getOrder().toString()}">usługa transportowa 179817 Jarosty PL &ndash; Zagrzeb HR</div>
         </td>
-        <td width="47">
-            <p>szt.</p>
+        <td>
+            szt.
         </td>
-        <td width="47">
-            <p>1</p>
+        <td>
+            1
         </td>
-        <td width="77">
-            <p th:text="${orderDTO.getOrder().getValue()}">4190,29</p>
+        <td>
+            <div th:text="${orderDTO.getOrder().getValue()}">4190,29</div>
         </td>
-        <td width="46">
-            <p>23%</p>
+        <td>
+            23%
         </td>
-        <td width="76">
-            <!-- TODO: get a taxed value from an order -->
-            <p th:text="${orderDTO.getTaxValue()}">xxx.xx</p>
+        <td>
+            <div th:text="${orderDTO.getTaxValue()}">963,77</div>
         </td>
-        <td width="75">
-            <p th:text="${orderDTO.getOrder().getValue()}">4190,29</p>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<p>&nbsp;</p>
-<table>
-    <tbody>
-    <tr>
-        <td width="75">
-            <p><strong>Stawka</strong></p>
-        </td>
-        <td width="75">
-            <p><strong>Netto</strong></p>
-        </td>
-        <td width="75">
-            <p><strong>VAT</strong></p>
-        </td>
-        <td width="75">
-            <p><strong>Brutto</strong></p>
-        </td>
-    </tr>
-    <tr>
-        <td width="75">
-            <p>23%</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getNettoSum()}">sumaNetto</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getTaxSum()}">sumaVat</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</p>
-        </td>
-    </tr>
-    <tr>
-        <td width="75">
-            <p>Razem:</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getNettoSum()}">sumaNetto</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getTaxSum()}">sumaVat</p>
-        </td>
-        <td width="75">
-            <p th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</p>
+        <td>
+            <div th:text="${orderDTO.getOrder().getValue()}">4190,29</div>
         </td>
     </tr>
     </tbody>
@@ -244,48 +193,93 @@
 <table>
     <tbody>
     <tr>
-        <td width="85">
-            <p><strong>Do zapłaty:</strong></p>
+        <td>
+            <strong>Stawka</strong>
         </td>
-        <td width="519">
-            <p th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</p>
+        <td>
+            <strong>Netto</strong>
+        </td>
+        <td>
+            <strong>VAT</strong>
+        </td>
+        <td>
+            <strong>Brutto</strong>
         </td>
     </tr>
     <tr>
-        <td width="85">
-            <p><strong>Słownie:</strong></p>
+        <td>
+            23%
         </td>
-        <td width="519">
-            <p>sumaBruttoSlownie</p>
+        <td>
+            <div th:text="${invoiceDTO.getNettoSum()}">sumaNetto</div>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getTaxSum()}">sumaVat</div>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>Razem:</div>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getNettoSum()}">sumaNetto</div>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getTaxSum()}">sumaVat</div>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</div>
         </td>
     </tr>
     </tbody>
 </table>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <strong>Do zapłaty:</strong>
+        </td>
+        <td>
+            <div th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Słownie:</strong>
+        </td>
+        <td>
+            sumaBruttoSlownie
+        </td>
+    </tr>
+    </tbody>
+</table>
 <p>&nbsp;</p>
 <table>
     <tbody>
     <tr>
-        <td width="274">
+        <td>
             <p>&nbsp;</p>
         </td>
-        <td width="76">
+        <td>
             <p>&nbsp;</p>
         </td>
-        <td width="254">
+        <td>
             <p>&nbsp;</p>
         </td>
     </tr>
     <tr>
-        <td width="274">
-            <p><em>podpis imienny osoby uprawnionej do wystawienia faktury VAT</em></p>
+        <td>
+            <em>podpis imienny osoby uprawnionej do wystawienia faktury VAT</em>
         </td>
-        <td width="76">
-            <p>&nbsp;</p>
+        <td>
+            &nbsp;
         </td>
-        <td width="254">
-            <p><em>podpis imienny osoby upoważnionej do odebrania faktury VAT</em></p>
+        <td>
+            <em>podpis imienny osoby upoważnionej do odebrania faktury VAT</em>
         </td>
     </tr>
     </tbody>
