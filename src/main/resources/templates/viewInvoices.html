@@ -5,18 +5,36 @@
     <title>Invoices</title>
 </head>
 <body>
+    <div style="align-content: center">
+        <a th:href="@{~/orders}">View orders</a>
+    </div>
     <h1>All invoices:</h1>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Issue date</th>
-            <th>Sale date</th>
-        </tr>
-        <tr th:each="invoice: ${invoices}">
-            <td th:text="${invoice.invoiceId}">5/2018</td>
-            <td th:text="${invoice.issueDate}">2018-03-15</td>
-            <td th:text="${invoice.saleDate}">2018-03-17</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Issue date</th>
+                <th>Sale date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="invoice: ${invoices}">
+                <td th:text="${invoice.invoiceId}">5/2018</td>
+                <td th:text="${invoice.issueDate}">2018-03-15</td>
+                <td th:text="${invoice.saleDate}">2018-03-17</td>
+                <td>
+                    <a th:href="@{~/invoices/get(id=${invoice.invoiceId})}">View</a>
+                </td>
+                <!-- TODO edit invoice
+                <td>
+                    <a th:href="@{~/invoices/get(id=${invoice.invoiceId})}">View</a>
+                </td>
+                -->
+                <td>
+                    <a th:href="@{~/invoices/delete(id=${invoice.invoiceId})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <h2>Add invoice:</h2>
     <form action="/invoices/add" th:object="${clearInvoice}" method="post">
