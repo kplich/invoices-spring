@@ -22,7 +22,7 @@
             <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
             <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
             <td th:text="${order.value}">1234.56</td>
-            <td th:text="${order.invoice}">5/2018</td>
+            <td th:text="${order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
             <td>
                 <a th:href="@{~/orders/edit(number = ${order.number})}">Edit</a>
             </td>

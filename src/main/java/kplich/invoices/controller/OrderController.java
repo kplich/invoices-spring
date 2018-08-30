@@ -21,7 +21,7 @@ public class OrderController {
     public String viewAllOrders(Model model) {
 
         model.addAttribute("orders", service.getAllOrders());
-        model.addAttribute("invoices", service.getAllOrders());
+        model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
         return "viewOrders";
@@ -47,22 +47,26 @@ public class OrderController {
         return "viewOrders";
     }
 
+    @PostMapping(path = "/update")
+    public String updateOrder(@ModelAttribute TransportOrder order,
+                              @RequestParam int oldNumber,
+                              Model model) {
+
+	    service.updateOrder(oldNumber, order);
+
+        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("invoices", service.getAllInvoices());
+        model.addAttribute("newOrder", new TransportOrder());
+
+        return "viewOrders";
+    }
+
 	@GetMapping(path = "/edit")
     public String editOrder(@RequestParam int number, Model model) {
-	    Optional<TransportOrder> shouldBePresent = service.getOrderRepository().findById(number);
 
-	    if(shouldBePresent.isPresent()) {
-	        TransportOrder order = shouldBePresent.get(); //get the chosen order
-
-	        service.getOrderRepository().delete(order); //delete it from the repository
-
-	        order.setInvoice(null); //clear its invoice
-
-	        model.addAttribute("order", order); //put it into the form
-        }
-        else {
-            throw new IllegalArgumentException("There's no order with number " + number);
-        }
+	    model.addAttribute("order", service.getOrder(number));
+        model.addAttribute("invoices", service.getAllInvoices());
+        model.addAttribute("oldNumber", number);
 
         return "editOrder";
     }

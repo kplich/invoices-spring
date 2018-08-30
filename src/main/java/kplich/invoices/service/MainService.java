@@ -38,21 +38,25 @@ public class MainService {
         return result.get();
     }
 
-    /**
-     * the contract is, there's a separate method for adding a new order and updating an existing one
-     * @param order
-     */
+
     public void addOrder(TransportOrder order) {
         int orderNumber = order.getNumber();
 
-        if(this.getOrder(orderNumber) != null) {
+        if(orderRepository.findById(orderNumber).isPresent()) {
             throw new IllegalArgumentException("Order with ID " + orderNumber + " already exists!");
         }
 
         orderRepository.save(order);
     }
 
-    //TODO: editOrder()
+    public void updateOrder(int oldNumber, TransportOrder order) {
+        if(order.getNumber() == oldNumber) {
+            orderRepository.save(order);
+        }
+        else {
+            this.addOrder(order);
+        }
+    }
 
     public void deleteOrder(int orderNumber) {
 

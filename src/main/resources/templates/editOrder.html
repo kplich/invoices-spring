@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Order</title>
+    <title>Edit Order</title>
 </head>
 <body>
-    <form method="post" action="/orders/add" th:object="${order}">
+    <form method="post" action="/orders/update" th:action="@{~/orders/update(oldNumber = ${oldNumber})}" th:object="${order}">
         <table>
             <tr>
                 <th>Number:</th>
@@ -29,6 +29,17 @@
                 <th>Value:</th>
                 <td>
                     <input type="text" th:field="*{value}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Invoice:</th>
+                <td>
+                    <select th:field="*{invoice}">
+                        <option value="">None</option>
+                        <option th:each="optionInvoice: ${invoices}"
+                                th:value="${optionInvoice.invoiceId}"
+                                th:text="${optionInvoice}"></option>
+                    </select>
                 </td>
             </tr>
         </table>
