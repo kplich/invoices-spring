@@ -25,13 +25,14 @@ public class OrderController {
         return "viewOrders";
     }
 
-	@GetMapping(path = "/get")
+    //TODO: #10 usunac lub pozostawic
+	/*@GetMapping(path = "/get")
 	public String viewOrder(@RequestParam int number, Model model) {
 
 		model.addAttribute("order", service.getOrder(number));
 
 		return "viewOrder";
-	}
+	}*/
 
     @PostMapping(path = "/add")
     public String addOrder(@ModelAttribute TransportOrder order, Model model) {
