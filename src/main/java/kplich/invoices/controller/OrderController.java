@@ -6,14 +6,12 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-
 @Controller
 @RequestMapping(path = "/orders")
 public class OrderController {
-	private MainService service;
+	private ApplicationService service;
 
-	public OrderController(MainService service) {
+	public OrderController(ApplicationService service) {
 		this.service = service;
 	}
 

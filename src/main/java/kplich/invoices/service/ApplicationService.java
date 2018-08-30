@@ -11,14 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MainService {
+public class ApplicationService {
 	private InvoiceRepository invoiceRepository;
 	private OrderRepository orderRepository;
 
-	public MainService(InvoiceRepository invoiceRepository, OrderRepository orderRepository) {
+	public ApplicationService(InvoiceRepository invoiceRepository, OrderRepository orderRepository) {
 		this.invoiceRepository = invoiceRepository;
 		this.orderRepository = orderRepository;
 	}
+
+	//----------------------GET ALL DATA---------------------------------------
 
 	public Iterable<TransportOrder> getAllOrders() {
 	    return orderRepository.findAll();
@@ -27,6 +29,8 @@ public class MainService {
     public Iterable<Invoice> getAllInvoices() {
 	    return invoiceRepository.findAll();
     }
+
+    //--------------------------ORDER METHODS----------------------------------
 
 	public TransportOrder getOrder(int number) {
 	    Optional<TransportOrder> result = orderRepository.findById(number);
@@ -38,6 +42,21 @@ public class MainService {
         return result.get();
     }
 
+    public Iterable<TransportOrder> getOrdersWithInvoice(Invoice invoice) {
+
+        return orderRepository.findByInvoice(invoice);
+    }
+
+    public Iterable<TransportOrderDTO> getOrderDTOsWithInvoice(Invoice invoice) {
+
+        ArrayList<TransportOrderDTO> orderDTOS = new ArrayList<>();
+
+        for (TransportOrder order : orderRepository.findByInvoice(invoice)) {
+            orderDTOS.add(new TransportOrderDTO(order));
+        }
+
+        return orderDTOS;
+    }
 
     public void addOrder(TransportOrder order) {
         int orderNumber = order.getNumber();
@@ -71,6 +90,8 @@ public class MainService {
         }
     }
 
+    //----------------------INVOICE METHODS------------------------------------
+
     public Invoice getInvoice(String id) {
         Optional<Invoice> result = invoiceRepository.findById(id);
 
@@ -81,8 +102,7 @@ public class MainService {
         return result.get();
     }
 
-    //TODO: rename to addInvoice
-    public void saveInvoice(Invoice invoice, List<TransportOrder> orders) {
+    public void addInvoice(Invoice invoice, List<TransportOrder> orders) {
 
 	    String id = invoice.getInvoiceId();
         Optional<Invoice> shouldNotBePresent = invoiceRepository.findById(id);
@@ -119,20 +139,5 @@ public class MainService {
         } else {
 	        throw new IllegalArgumentException("Invoice with ID " + id + " doesn't exist.");
         }
-    }
-
-    public Iterable<TransportOrder> getOrdersWithInvoice(Invoice invoice) {
-	   return orderRepository.findByInvoice(invoice);
-    }
-
-    public Iterable<TransportOrderDTO> getInvoiceDTOOrders(Invoice invoice) {
-
-        ArrayList<TransportOrderDTO> orderDTOS = new ArrayList<>();
-
-        for(TransportOrder order: orderRepository.findByInvoice(invoice)) {
-            orderDTOS.add(new TransportOrderDTO(order));
-        }
-
-        return orderDTOS;
     }
 }
