@@ -70,7 +70,7 @@ public class InvoiceController {
         return "viewInvoices";
 	}
 
-	@DeleteMapping(path = "/delete")
+	@GetMapping(path = "/delete")
 	public String deleteById(@RequestParam String id, Model model) {
 		service.deleteInvoice(id);
 
