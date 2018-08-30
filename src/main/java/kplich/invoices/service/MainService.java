@@ -5,7 +5,6 @@ import kplich.invoices.model.TransportOrder;
 import kplich.invoices.model.TransportOrderDTO;
 import kplich.invoices.repository.*;
 import org.springframework.stereotype.*;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +20,65 @@ public class MainService {
 		this.orderRepository = orderRepository;
 	}
 
-	public InvoiceRepository getInvoiceRepository() {
-		return invoiceRepository;
-	}
+	public Iterable<TransportOrder> getAllOrders() {
+	    return orderRepository.findAll();
+    }
 
-	public OrderRepository getOrderRepository() {
-		return orderRepository;
-	}
+    public Iterable<Invoice> getAllInvoices() {
+	    return invoiceRepository.findAll();
+    }
 
-	public void saveInvoice(Invoice invoice, List<TransportOrder> orders) {
+	public TransportOrder getOrder(int number) {
+	    Optional<TransportOrder> result = orderRepository.findById(number);
+
+	    if(!result.isPresent()) {
+	        throw new IllegalArgumentException("There's no order with number " + number);
+        }
+
+        return result.get();
+    }
+
+    /**
+     * the contract is, there's a separate method for adding a new order and updating an existing one
+     * @param order
+     */
+    public void addOrder(TransportOrder order) {
+        int orderNumber = order.getNumber();
+
+        if(this.getOrder(orderNumber) != null) {
+            throw new IllegalArgumentException("Order with ID " + orderNumber + " already exists!");
+        }
+
+        orderRepository.save(order);
+    }
+
+    //TODO: editOrder()
+
+    public void deleteOrder(int orderNumber) {
+
+        Optional<TransportOrder> toBeDeleted = orderRepository.findById(orderNumber);
+
+        if (toBeDeleted.isPresent()) {
+            TransportOrder found = toBeDeleted.get();
+            orderRepository.delete(found);
+        }
+        else {
+            throw new IllegalArgumentException("There's no order with number " + orderNumber);
+        }
+    }
+
+    public Invoice getInvoice(String id) {
+        Optional<Invoice> result = invoiceRepository.findById(id);
+
+        if(!result.isPresent()) {
+            throw new IllegalArgumentException("There's no invoice with ID " + id);
+        }
+
+        return result.get();
+    }
+
+    //TODO: rename to addInvoice
+    public void saveInvoice(Invoice invoice, List<TransportOrder> orders) {
 
 	    String id = invoice.getInvoiceId();
         Optional<Invoice> shouldNotBePresent = invoiceRepository.findById(id);
@@ -68,18 +117,7 @@ public class MainService {
         }
     }
 
-    /*public Iterable<TransportOrder> getInvoiceOrders(String invoiceId) {
-	    Optional<Invoice> invoice = invoiceRepository.findById(invoiceId);
-
-	    if(invoice.isPresent()) {
-	        return getInvoiceOrders(invoice.get());
-        }
-        else {
-            throw new IllegalArgumentException("No invoice with ID " + invoiceId + " found.");
-        }
-    }*/
-
-    public Iterable<TransportOrder> getInvoiceOrders(Invoice invoice) {
+    public Iterable<TransportOrder> getOrdersWithInvoice(Invoice invoice) {
 	   return orderRepository.findByInvoice(invoice);
     }
 
@@ -93,25 +131,4 @@ public class MainService {
 
         return orderDTOS;
     }
-
-    public void deleteOrder(int orderNumber) {
-
-        Optional<TransportOrder> toBeDeleted = orderRepository.findById(orderNumber);
-
-        if (toBeDeleted.isPresent()) {
-            TransportOrder found = toBeDeleted.get();
-            orderRepository.delete(found);
-        }
-        else {
-            throw new IllegalArgumentException("There's no order with number " + orderNumber);
-        }
-    }
-
-    public void injectData(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
-        model.addAttribute("invoices", invoiceRepository.findAll());
-        model.addAttribute("newOrder", new TransportOrder());
-    }
-
-
 }

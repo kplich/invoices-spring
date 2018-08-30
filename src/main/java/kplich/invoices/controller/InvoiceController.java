@@ -21,27 +21,18 @@ public class InvoiceController {
 
 	@GetMapping
 	public String viewAllInvoices(Model model) {
-	    model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+	    model.addAttribute("invoices", service.getAllInvoices());
+        model.addAttribute("unusedOrders", service.getOrdersWithInvoice(null));
         model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
 		return "viewInvoices";
 	}
 
 	@GetMapping(path = "/get")
-	public String getById(@RequestParam String id, Model model) {
-	    InvoiceOutputDTO outputDTO;
-	    Optional<Invoice> optionalInvoice = service.getInvoiceRepository().findById(id);
+	public String viewInvoice(@RequestParam String id, Model model) {
 
-	    if(optionalInvoice.isPresent()) {
-	        Invoice invoice = optionalInvoice.get();
-
-	        outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceDTOOrders(invoice));
-
-        }
-        else {
-            throw new IllegalArgumentException("There's no invoice with id " + id);
-        }
+	    Invoice invoice = service.getInvoice(id);
+	    InvoiceOutputDTO outputDTO = new InvoiceOutputDTO(invoice, service.getInvoiceDTOOrders(invoice));
 
 		model.addAttribute("invoiceDTO", outputDTO);
 
@@ -63,19 +54,19 @@ public class InvoiceController {
             service.saveInvoice(invoiceDTO.getInvoice(), invoiceDTO.getOrders());
         }
 
-        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("invoices", service.getAllInvoices());
+        model.addAttribute("unusedOrders", service.getOrdersWithInvoice(null));
         model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";
 	}
 
 	@GetMapping(path = "/delete")
-	public String deleteById(@RequestParam String id, Model model) {
+	public String deleteInvoice(@RequestParam String id, Model model) {
 		service.deleteInvoice(id);
 
-        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-        model.addAttribute("unusedOrders", service.getInvoiceOrders(null));
+        model.addAttribute("invoices", service.getAllInvoices());
+        model.addAttribute("unusedOrders", service.getOrdersWithInvoice(null));
         model.addAttribute("clearInvoice", new InvoiceInputDTO(new Invoice(), new ArrayList<>()));
 
         return "viewInvoices";

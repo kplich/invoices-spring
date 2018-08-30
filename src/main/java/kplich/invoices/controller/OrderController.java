@@ -17,29 +17,35 @@ public class OrderController {
 		this.service = service;
 	}
 
-	//TODO: delete this?
+    @GetMapping
+    public String viewAllOrders(Model model) {
+
+        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("invoices", service.getAllOrders());
+        model.addAttribute("newOrder", new TransportOrder());
+
+        return "viewOrders";
+    }
+
 	@GetMapping(path = "/get")
 	public String viewOrder(@RequestParam int number, Model model) {
-		Optional<TransportOrder> result = service.getOrderRepository().findById(number);
 
-		if(result.isPresent()) {
-		    model.addAttribute("order", result.get());
-        }
-        else {
-        	throw new IllegalArgumentException("There's no order with ID " + number);
-		}
+		model.addAttribute("order", service.getOrder(number));
+
 		return "viewOrder";
 	}
 
-	@GetMapping
-	public String viewAllOrders(Model model) {
+    @PostMapping(path = "/add")
+    public String addOrder(@ModelAttribute TransportOrder order, Model model) {
 
-        model.addAttribute("orders", service.getOrderRepository().findAll());
-        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+	    service.addOrder(order);
+
+        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
-		return "viewOrders";
-	}
+        return "viewOrders";
+    }
 
 	@GetMapping(path = "/edit")
     public String editOrder(@RequestParam int number, Model model) {
@@ -61,28 +67,12 @@ public class OrderController {
         return "editOrder";
     }
 
-	@PostMapping(path = "/add")
-	public String addOrder(@ModelAttribute TransportOrder order, Model model) {
-		try {
-			service.getOrderRepository().save(order);
-		}
-		catch (Exception e) {
-			e.printStackTrace(); //TODO no to jak to logowac?
-		}
-
-        model.addAttribute("orders", service.getOrderRepository().findAll());
-        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
-        model.addAttribute("newOrder", new TransportOrder());
-
-		return "viewOrders";
-	}
-
 	@GetMapping(path = "/delete")
 	public String deleteOrder(@RequestParam int number, Model model) {
 		service.deleteOrder(number);
 
-        model.addAttribute("orders", service.getOrderRepository().findAll());
-        model.addAttribute("invoices", service.getInvoiceRepository().findAll());
+        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
 		return "viewOrders";
