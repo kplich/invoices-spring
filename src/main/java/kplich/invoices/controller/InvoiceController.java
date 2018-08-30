@@ -37,6 +37,8 @@ public class InvoiceController {
 		return "printInvoice";
 	}
 
+	//TODO #1 edit invoice
+
 	@PostMapping(path = "/add")
 	public String addInvoice(@ModelAttribute InvoiceInputDTO invoiceDTO, Model model) {
 
