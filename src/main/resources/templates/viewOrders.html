@@ -21,7 +21,7 @@
             <td th:text="${order.value}">1234.56</td>
             <td th:text="${order.invoice}">5/2018</td>
             <td>
-                <a th:href="@{~/orders/get(number = ${order.number})}">Edit</a>
+                <a th:href="@{~/orders/edit(number = ${order.number})}">Edit</a>
             </td>
             <td>
                 <a th:href="@{~/orders/delete(number = ${order.number})}">Delete</a>

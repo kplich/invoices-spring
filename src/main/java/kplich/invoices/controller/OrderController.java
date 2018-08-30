@@ -18,16 +18,18 @@ public class OrderController {
 	}
 
 	//TODO: delete this?
-	/*@GetMapping(path = "/get")
-	public String getByNumber(@RequestParam int number, Model model) {
+	@GetMapping(path = "/get")
+	public String viewOrder(@RequestParam int number, Model model) {
 		Optional<TransportOrder> result = service.getOrderRepository().findById(number);
 
 		if(result.isPresent()) {
 		    model.addAttribute("order", result.get());
         }
-		model.addAttribute("order", result.get());
+        else {
+        	throw new IllegalArgumentException("There's no order with ID " + number);
+		}
 		return "viewOrder";
-	}*/
+	}
 
 	@GetMapping
 	public String viewAllOrders(Model model) {
@@ -59,30 +61,8 @@ public class OrderController {
         return "editOrder";
     }
 
-    //TODO: delete this too?
-	/*@GetMapping(path = "/get/invoice")
-	@ResponseBody
-	public Iterable<TransportOrder> getByInvoice(@RequestParam String invoiceId) {
-		Optional<Invoice> invoice = service.getInvoiceRepository().findById(invoiceId);
-
-		if(invoice.isPresent()) {
-			return invoice.get().getOrders();
-		}
-		else {
-			throw new IllegalArgumentException("There's no invoice with given ID.");
-		}
-	}*/
-
-	//TODO: delete this too?
-	/*@GetMapping(path = "/add")
-	public String addOrUpdate(Model model) {
-	    model.addAttribute("newOrder", new TransportOrder());
-
-		return "editOrder";
-	}*/
-
 	@PostMapping(path = "/add")
-	public String addOrUpdate(@ModelAttribute TransportOrder order, Model model) {
+	public String addOrder(@ModelAttribute TransportOrder order, Model model) {
 		try {
 			service.getOrderRepository().save(order);
 		}
@@ -98,7 +78,7 @@ public class OrderController {
 	}
 
 	@GetMapping(path = "/delete")
-	public String delete(@RequestParam int number, Model model) {
+	public String deleteOrder(@RequestParam int number, Model model) {
 		service.deleteOrder(number);
 
         model.addAttribute("orders", service.getOrderRepository().findAll());
