@@ -23,7 +23,7 @@
                 <td th:text="${invoice.issueDate}">2018-03-15</td>
                 <td th:text="${invoice.saleDate}">2018-03-17</td>
                 <td>
-                    <a th:href="@{~/invoices/get(id=${invoice.invoiceId})}">View</a>
+                    <a th:href="@{~/invoices/print(id=${invoice.invoiceId})}">Print</a>
                 </td>
                 <!-- TODO edit invoice
                 <td>

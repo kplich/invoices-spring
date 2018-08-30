@@ -26,15 +26,15 @@ public class InvoiceController {
 		return "viewInvoices";
 	}
 
-	@GetMapping(path = "/get")
-	public String viewInvoice(@RequestParam String id, Model model) {
+	@GetMapping(path = "/print")
+	public String printInvoice(@RequestParam String id, Model model) {
 
 	    Invoice invoice = service.getInvoice(id);
 	    InvoiceOutputDTO outputDTO = new InvoiceOutputDTO(invoice, service.getOrderDTOsWithInvoice(invoice));
 
 		model.addAttribute("invoiceDTO", outputDTO);
 
-		return "viewInvoice";
+		return "printInvoice";
 	}
 
 	@PostMapping(path = "/add")
