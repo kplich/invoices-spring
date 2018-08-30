@@ -21,14 +21,10 @@
             <td th:text="${order.value}">1234.56</td>
             <td th:text="${order.invoice}">5/2018</td>
             <td>
-                <form th:action="@{'~/orders/get?number=' + ${order.number}}">
-                    <button type="submit">View</button>
-                </form>
+                <a th:href="@{~/orders/edit(number = ${order.number})}">Edit</a>
             </td>
             <td>
-                <form th:action="@{'~/orders/delete?number=' + ${order.number}}">
-                    <button type="submit">Delete</button>
-                </form>
+                <a th:href="@{~/orders/delete(number = ${order.number})}">Delete</a>
             </td>
         </tr>
     </table>
