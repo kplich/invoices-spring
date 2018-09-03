@@ -28,10 +28,12 @@
             <td th:text="${orderDTO.bruttoValue}">1518.50</td>
             <td th:text="${orderDTO.order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
             <td>
-                <a th:href="@{~/app/orders/edit(number = ${orderDTO.order.number})}">Edit</a>
+                <a th:href="@{~/app/orders/edit(number = ${orderDTO.order.number})}"
+                   th:text="#{general.edit}">Edit</a>
             </td>
             <td>
-                <a th:href="@{~/app/orders/delete(number = ${orderDTO.order.number})}">Delete</a>
+                <a th:href="@{~/app/orders/delete(number = ${orderDTO.order.number})}"
+                   th:text="#{general.delete}">Delete</a>
             </td>
         </tr>
     </table>
@@ -66,7 +68,7 @@
                 <th>Invoice:</th>
                 <td>
                     <select th:field="*{invoice}">
-                        <option value="">None</option>
+                        <option value="" th:text="#{general.none}">None</option>
                         <option th:each="inv: ${invoices}"
                                 th:value="${inv.invoiceId}"
                                 th:text="${inv.toString()}"></option>

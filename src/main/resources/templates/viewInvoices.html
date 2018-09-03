@@ -24,7 +24,8 @@
                 <td th:text="${invoice.saleDate}">2018-03-17</td>
                 <!-- TODO #11 wyswietlac wiecej info? -->
                 <td>
-                    <a th:href="@{~/app/invoices/print(id=${invoice.invoiceId})}">Print</a>
+                    <a th:href="@{~/app/invoices/print(id=${invoice.invoiceId})}"
+                       th:text="#{general.print}">Print</a>
                 </td>
                 <!-- TODO #1 edit invoice
                 <td>
@@ -32,7 +33,8 @@
                 </td>
                 -->
                 <td>
-                    <a th:href="@{~/app/invoices/delete(id=${invoice.invoiceId})}">Delete</a>
+                    <a th:href="@{~/app/invoices/delete(id=${invoice.invoiceId})}"
+                       th:text="#{general.delete}">Delete</a>
                 </td>
             </tr>
         </tbody>
