@@ -5,7 +5,7 @@
     <title>Edit Order</title>
 </head>
 <body>
-    <form method="post" action="/app/orders/update" th:action="@{~/orders/update(oldNumber = ${oldNumber})}" th:object="${order}">
+    <form method="post" action="/app/orders/update" th:action="@{~/app/orders/update(oldNumber = ${oldNumber})}" th:object="${order}">
         <table>
             <tr>
                 <th>Number:</th>

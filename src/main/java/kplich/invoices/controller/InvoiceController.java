@@ -30,7 +30,8 @@ public class InvoiceController {
 	public String printInvoice(@RequestParam String id, Model model) {
 
 	    Invoice invoice = service.getInvoice(id);
-	    InvoiceOutputDTO outputDTO = new InvoiceOutputDTO(invoice, service.getOrderDTOsWithInvoice(invoice));
+	    Iterable<TransportOrderDTO> orderDTOs = ApplicationService.convertOrdersToDTOs(service.getOrdersWithInvoice(invoice));
+	    InvoiceOutputDTO outputDTO = new InvoiceOutputDTO(invoice, orderDTOs);
 
 		model.addAttribute("invoiceDTO", outputDTO);
 

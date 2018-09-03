@@ -15,19 +15,21 @@
             <th>Loading location</th>
             <th>Unloading location</th>
             <th>Value</th>
+            <th>Tax value</th>
             <th>Invoice</th>
         </tr>
-        <tr th:each="order: ${orders}">
-            <td th:text="${order.number}">123456</td>
-            <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
-            <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
-            <td th:text="${order.value}">1234.56</td>
-            <td th:text="${order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
+        <tr th:each="orderDTO: ${orders}">
+            <td th:text="${orderDTO.order.number}">123456</td>
+            <td th:text="${orderDTO.order.loadingLocation}">Tomaszów Mazowiecki PL</td>
+            <td th:text="${orderDTO.order.unloadingLocation}">Koprivnica HR</td>
+            <td th:text="${orderDTO.order.value}">1234.56</td>
+            <td th:text="${orderDTO.taxValue}">283.94</td>
+            <td th:text="${orderDTO.order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
             <td>
-                <a th:href="@{~/orders/edit(number = ${order.number})}">Edit</a>
+                <a th:href="@{~/app/orders/edit(number = ${orderDTO.order.number})}">Edit</a>
             </td>
             <td>
-                <a th:href="@{~/orders/delete(number = ${order.number})}">Delete</a>
+                <a th:href="@{~/app/orders/delete(number = ${orderDTO.order.number})}">Delete</a>
             </td>
         </tr>
     </table>

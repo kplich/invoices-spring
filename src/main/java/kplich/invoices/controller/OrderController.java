@@ -18,7 +18,7 @@ public class OrderController {
     @GetMapping
     public String viewAllOrders(Model model) {
 
-        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("orders", ApplicationService.convertOrdersToDTOs(service.getAllOrders()));
         model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
@@ -39,7 +39,7 @@ public class OrderController {
 
 	    service.addOrder(order);
 
-        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("orders", ApplicationService.convertOrdersToDTOs(service.getAllOrders()));
         model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
@@ -53,7 +53,7 @@ public class OrderController {
 
 	    service.updateOrder(oldNumber, order);
 
-        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("orders", ApplicationService.convertOrdersToDTOs(service.getAllOrders()));
         model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
@@ -74,7 +74,7 @@ public class OrderController {
 	public String deleteOrder(@RequestParam int number, Model model) {
 		service.deleteOrder(number);
 
-        model.addAttribute("orders", service.getAllOrders());
+        model.addAttribute("orders", ApplicationService.convertOrdersToDTOs(service.getAllOrders()));
         model.addAttribute("invoices", service.getAllInvoices());
         model.addAttribute("newOrder", new TransportOrder());
 
