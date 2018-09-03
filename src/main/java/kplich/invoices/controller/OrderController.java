@@ -7,7 +7,7 @@ import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path = "/orders")
+@RequestMapping(path = "/app/orders")
 public class OrderController {
 	private ApplicationService service;
 

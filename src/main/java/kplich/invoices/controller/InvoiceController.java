@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
-@RequestMapping(path = "/invoices")
+@RequestMapping(path = "/app/invoices")
 public class InvoiceController {
 	private ApplicationService service;
 
