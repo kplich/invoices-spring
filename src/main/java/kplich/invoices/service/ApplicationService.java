@@ -90,6 +90,16 @@ public class ApplicationService {
         }
     }
 
+    public static Iterable<TransportOrderDTO> convertOrdersToDTOs(Iterable<TransportOrder> orders) {
+	    ArrayList<TransportOrderDTO> result = new ArrayList<>();
+
+	    for(TransportOrder order: orders) {
+	        result.add(new TransportOrderDTO(order));
+        }
+
+        return result;
+    }
+
     //----------------------INVOICE METHODS------------------------------------
 
     public Invoice getInvoice(String id) {
