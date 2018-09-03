@@ -16,6 +16,7 @@
             <th>Unloading location</th>
             <th>Value</th>
             <th>Tax value</th>
+            <th>Brutto value</th>
             <th>Invoice</th>
         </tr>
         <tr th:each="orderDTO: ${orders}">
@@ -24,6 +25,7 @@
             <td th:text="${orderDTO.order.unloadingLocation}">Koprivnica HR</td>
             <td th:text="${orderDTO.order.value}">1234.56</td>
             <td th:text="${orderDTO.taxValue}">283.94</td>
+            <td th:text="${orderDTO.bruttoValue}">1518.50</td>
             <td th:text="${orderDTO.order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
             <td>
                 <a th:href="@{~/app/orders/edit(number = ${orderDTO.order.number})}">Edit</a>
