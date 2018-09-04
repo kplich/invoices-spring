@@ -11,12 +11,12 @@
         <table width="100%">
             <tr>
                 <td>
-                    <h2>FAKTURA VAT</h2>
+                    <h2 th:text="#{invoice.invoice}">FAKTURA VAT</h2>
                 </td>
                 <td>
                     <h3 th:text="|FV ${invoiceDTO.getInvoice().getInvoiceId()}|">FV 1/2018</h3>
                 </td>
-                <td>
+                <td th:text="#{invoice.original_copy}">
                     Oryginał/Kopia
                 </td>
             </tr>
@@ -24,13 +24,13 @@
         <table width="100%">
             <tr>
                 <td style="text-align: right; vertical-align: top; width: 10%">
-                    <strong>Sprzedawca:</strong>
+                    <strong th:text="#{invoice.seller}">Sprzedawca:</strong>
                 </td>
                 <td style="width: 40%">
                     Firma Handlowo-Usługowa KAMRO<br/> Włodzimierz Plich
                 </td>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>Nabywca:</strong>
+                    <strong th:text="#{invoice.buyer}">Nabywca:</strong>
                 </td>
                 <td>
                     Transforwarding International sp.&nbsp;z&nbsp;o.o.
@@ -38,13 +38,13 @@
             </tr>
             <tr>
                 <td style="text-align: right; vertical-align: top; width: 10%">
-                    <strong>Adres:</strong>
+                    <strong th:text="#{invoice.address}">Adres:</strong>
                 </td>
                 <td style="width: 40%">
                     ul. Jana Pawła II 41<br/> 97-320 Swolszewice Duże
                 </td>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>Adres:</strong>
+                    <strong th:text="#{invoice.address}">Adres:</strong>
                 </td>
                 <td>
                     ul. Na Skraju 73A<br/> 05-090 Raszyn
@@ -52,13 +52,13 @@
             </tr>
             <tr>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>NIP:</strong>
+                    <strong th:text="#{invoice.vatID}">NIP:</strong>
                 </td>
                 <td>
                     7711012886
                 </td>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>NIP:</strong>
+                    <strong th:text="#{invoice.vatID}">NIP:</strong>
                 </td>
                 <td>
                     PL5342147482
@@ -66,7 +66,7 @@
             </tr>
             <tr>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>Bank:</strong>
+                    <strong th:text="#{invoice.bank}">Bank:</strong>
                 </td>
                 <td>
                     BGŻ BNP Paribas S.A. oddział w&nbsp;Tomaszowie Maz.
@@ -80,7 +80,7 @@
             </tr>
             <tr>
                 <td style="text-align: right; vertical-align: top;">
-                    <strong>Konto:</strong>
+                    <strong th:text="#{invoice.account}">Konto:</strong>
                 </td>
                 <td>
                     79160014621833071520000001
@@ -97,7 +97,7 @@
         <table>
             <tr>
                 <td style="text-align: right">
-                    <strong>Data sprzedaży:</strong>
+                    <strong th:text="#{invoices.sale}">Data sprzedaży:</strong>
                 </td>
                 <td>
                     <div th:text="${invoiceDTO.getInvoice().getSaleDate()}">01-01-2018</div>
@@ -105,15 +105,15 @@
             </tr>
             <tr>
                 <td style="text-align: right">
-                    <strong>Spos&oacute;b zapłaty:</strong>
+                    <strong th:text="#{invoice.method}">Spos&oacute;b zapłaty:</strong>
                 </td>
-                <td>
+                <td th:text="#{invoice.transfer}">
                     przelew
                 </td>
             </tr>
             <tr>
                 <td style="text-align: right">
-                    <strong>Termin płatności:</strong>
+                    <strong th:text="#{invoice.paymentDate}">Termin płatności:</strong>
                 </td>
                 <td>
                     <div th:text="${invoiceDTO.getPaymentDate()}">31-01-2018</div>
@@ -121,9 +121,9 @@
             </tr>
             <tr>
                 <td style="text-align: right">
-                    <strong>Transport:</strong>
+                    <strong th:text="#{invoice.transport}">Transport:</strong>
                 </td>
-                <td>
+                <td th:text="#{invoice.own}">
                     własny
                 </td>
             </tr>
@@ -132,28 +132,28 @@
         <table style="border: 10px black; width: 100%;">
             <thead style="text-align: center">
                 <tr style="border-bottom: 1px solid #dddddd">
-                    <th style="width: 5%;">
+                    <th style="width: 5%;" th:text="#{general.number}">
                         <strong>Lp.</strong>
                     </th>
-                    <th style="width: 30%">
+                    <th style="width: 30%" th:text="#{invoice.name}">
                         <strong>Nazwa</strong>
                     </th>
-                    <th style="width: 10%">
+                    <th style="width: 10%" th:text="#{invoice.units}">
                         <strong>J. m.</strong>
                     </th>
-                    <th style="width: 5%; ">
+                    <th style="width: 5%; " th:text="#{invoice.amount}">
                         <strong>Ilość</strong>
                     </th>
-                    <th style="width: 15%; ">
+                    <th style="width: 15%; " th:text="#{invoice.price}">
                         <strong>Cena netto&nbsp;[zł]</strong>
                     </th>
-                    <th style="width: 5%; ">
+                    <th style="width: 5%; " th:text="#{invoice.taxRate}">
                         <strong>VAT</strong>
                     </th>
-                    <th style="width: 15%; ">
+                    <th style="width: 15%; " th:text="#{invoice.taxValue}">
                         <strong>Wartość VAT&nbsp;[zł]</strong>
                     </th>
-                    <th style="width: 15%; ">
+                    <th style="width: 15%; " th:text="#{invoice.nettoValue}">
                         <strong>Wartość netto&nbsp;[zł]</strong>
                     </th>
                 </tr>
@@ -193,16 +193,16 @@
         <table style="width: 50%; text-align: center">
             <thead>
                 <tr>
-                    <th>
+                    <th th:text="#{invoice.taxRate}">
                         <strong>Stawka</strong>
                     </th>
-                    <th>
+                    <th th:text="#{invoice.nettoValue}">
                         <strong>Netto&nbsp;[zł]</strong>
                     </th>
-                    <th>
+                    <th th:text="#{invoice.taxValue}">
                         <strong>VAT&nbsp;[zł]</strong>
                     </th>
-                    <th>
+                    <th th:text="#{invoice.bruttoValue}">
                         <strong>Brutto&nbsp;[zł]</strong>
                     </th>
                 </tr>
@@ -224,7 +224,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div>Razem:</div>
+                        <div th:text="#{invoice.total}">Razem:</div>
                     </td>
                     <td>
                         <div th:text="${invoiceDTO.getNettoSum()}">sumaNetto</div>
@@ -242,7 +242,7 @@
         <table>
             <tr>
                 <td>
-                    <strong>Do zapłaty:</strong>
+                    <strong th:text="#{invoice.toPay}">Do zapłaty:</strong>
                 </td>
                 <td>
                     <div th:text="${invoiceDTO.getBruttoSum()}">sumaBrutto</div>
@@ -266,13 +266,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <em>podpis imienny osoby uprawnionej do wystawienia faktury VAT</em>
+                        <em th:text="#{invoice.issuerSignature}">podpis imienny osoby uprawnionej do wystawienia faktury VAT</em>
                     </td>
                     <td>
                         &nbsp;
                     </td>
                     <td>
-                        <em>podpis imienny osoby upoważnionej do odebrania faktury VAT</em>
+                        <em th:text="#{invoice.receiverSignature}">podpis imienny osoby upoważnionej do odebrania faktury VAT</em>
                     </td>
                 </tr>
             </table>
