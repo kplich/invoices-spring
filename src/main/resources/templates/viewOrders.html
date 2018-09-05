@@ -6,63 +6,69 @@
 </head>
 <body>
     <div style="align-content: center">
-        <a th:href="@{~/invoices}">View invoices</a>
+        <a th:href="@{~/app/invoices}" th:text="#{orders.viewInvoices}">View invoices</a>
     </div>
-    <h1>All orders:</h1>
+    <h1 th:text="#{orders.header}">All orders:</h1>
     <table>
         <tr>
-            <th>Number</th>
-            <th>Loading location</th>
-            <th>Unloading location</th>
-            <th>Value</th>
-            <th>Invoice</th>
+            <th th:text="#{orders.number}">Number</th>
+            <th th:text="#{orders.loading}">Loading location</th>
+            <th th:text="#{orders.unloading}">Unloading location</th>
+            <th th:text="#{orders.value}">Value</th>
+            <th th:text="#{orders.tax}">Tax value</th>
+            <th th:text="#{orders.brutto}">Brutto value</th>
+            <th th:text="#{orders.invoice}">Invoice</th>
         </tr>
-        <tr th:each="order: ${orders}">
-            <td th:text="${order.number}">123456</td>
-            <td th:text="${order.loadingLocation}">Tomaszów Mazowiecki PL</td>
-            <td th:text="${order.unloadingLocation}">Koprivnica HR</td>
-            <td th:text="${order.value}">1234.56</td>
-            <td th:text="${order.invoice}">5/2018</td>
+        <tr th:each="orderDTO: ${orders}">
+            <td th:text="${orderDTO.order.number}">123456</td>
+            <td th:text="${orderDTO.order.loadingLocation}">Tomaszów Mazowiecki PL</td>
+            <td th:text="${orderDTO.order.unloadingLocation}">Koprivnica HR</td>
+            <td th:text="${orderDTO.order.value}">1234.56</td>
+            <td th:text="${orderDTO.taxValue}">283.94</td>
+            <td th:text="${orderDTO.bruttoValue}">1518.50</td>
+            <td th:text="${orderDTO.order.invoice}">5/2018</td> <!-- TODO: wyswietlac jakos tylko ID faktury -->
             <td>
-                <a th:href="@{~/orders/edit(number = ${order.number})}">Edit</a>
+                <a th:href="@{~/app/orders/edit(number = ${orderDTO.order.number})}"
+                   th:text="#{general.edit}">Edit</a>
             </td>
             <td>
-                <a th:href="@{~/orders/delete(number = ${order.number})}">Delete</a>
+                <a th:href="@{~/app/orders/delete(number = ${orderDTO.order.number})}"
+                   th:text="#{general.delete}">Delete</a>
             </td>
         </tr>
     </table>
 
-    <form method="post" action="/orders/add" th:object="${newOrder}">
+    <form method="post" action="/app/orders/add" th:object="${newOrder}">
         <table>
             <tr>
-                <th>Number:</th>
+                <th th:text="#{orders.number}">Number:</th>
                 <td>
                     <input type="number" th:field="*{number}" />
                 </td>
             </tr>
             <tr>
-                <th>Loading location:</th>
+                <th th:text="#{orders.loading}">Loading location:</th>
                 <td>
                     <input type="text" th:field="*{loadingLocation}"/>
                 </td>
             </tr>
             <tr>
-                <th>Unloading location:</th>
+                <th th:text="#{orders.unloading}">Unloading location:</th>
                 <td>
                     <input type="text" th:field="*{unloadingLocation}"/>
                 </td>
             </tr>
             <tr>
-                <th>Value:</th>
+                <th th:text="#{orders.value}">Value:</th>
                 <td>
                     <input type="text" th:field="*{value}"/>
                 </td>
             </tr>
             <tr>
-                <th>Invoice:</th>
+                <th th:text="#{orders.invoice}">Invoice:</th>
                 <td>
                     <select th:field="*{invoice}">
-                        <option value="">None</option>
+                        <option value="" th:text="#{general.none}">None</option>
                         <option th:each="inv: ${invoices}"
                                 th:value="${inv.invoiceId}"
                                 th:text="${inv.toString()}"></option>
@@ -71,7 +77,7 @@
             </tr>
         </table>
 
-        <button type="submit">Submit!</button>
+        <button type="submit" th:text="#{general.submit}">Submit!</button>
     </form>
 </body>
 </html>

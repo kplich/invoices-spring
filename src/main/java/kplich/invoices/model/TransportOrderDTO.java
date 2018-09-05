@@ -1,7 +1,6 @@
 package kplich.invoices.model;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class TransportOrderDTO {
@@ -10,10 +9,12 @@ public class TransportOrderDTO {
 
     private TransportOrder order;
     private BigDecimal taxValue;
+    private BigDecimal bruttoValue;
 
     public TransportOrderDTO(TransportOrder order) {
         this.order = order;
         this.taxValue = order.getValue().multiply(TAX).setScale(2, RoundingMode.HALF_UP);
+        this.bruttoValue = order.getValue().add(taxValue);
     }
 
     public TransportOrder getOrder() {
@@ -24,5 +25,10 @@ public class TransportOrderDTO {
     public BigDecimal getTaxValue() {
 
         return taxValue;
+    }
+
+    public BigDecimal getBruttoValue() {
+
+        return bruttoValue;
     }
 }

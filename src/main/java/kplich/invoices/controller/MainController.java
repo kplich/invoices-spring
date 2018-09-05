@@ -12,4 +12,9 @@ public class MainController {
 	public String hello() {
 		return "hello";
 	}
+
+	@GetMapping(path = "")
+    public String getMainPage() {
+	    return "mainPage";
+    }
 }
