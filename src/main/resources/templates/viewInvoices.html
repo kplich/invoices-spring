@@ -6,15 +6,15 @@
 </head>
 <body>
     <div style="align-content: center">
-        <a th:href="@{~/app/orders}">View orders</a>
+        <a th:href="@{~/app/orders}" th:text="#{invoices.viewOrders}">View orders</a>
     </div>
-    <h1>All invoices:</h1>
+    <h1 th:text="#{invoices.header}">All invoices:</h1>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Issue date</th>
-                <th>Sale date</th>
+                <th th:text="#{invoices.id}">ID</th>
+                <th th:text="#{invoices.issue}">Issue date</th>
+                <th th:text="#{invoices.sale}">Sale date</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,8 @@
                 <td th:text="${invoice.saleDate}">2018-03-17</td>
                 <!-- TODO #11 wyswietlac wiecej info? -->
                 <td>
-                    <a th:href="@{~/app/invoices/print(id=${invoice.invoiceId})}">Print</a>
+                    <a th:href="@{~/app/invoices/print(id=${invoice.invoiceId})}"
+                       th:text="#{general.print}">Print</a>
                 </td>
                 <!-- TODO #1 edit invoice
                 <td>
@@ -32,16 +33,17 @@
                 </td>
                 -->
                 <td>
-                    <a th:href="@{~/app/invoices/delete(id=${invoice.invoiceId})}">Delete</a>
+                    <a th:href="@{~/app/invoices/delete(id=${invoice.invoiceId})}"
+                       th:text="#{general.delete}">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <h2>Add invoice:</h2>
+    <h2 th:text="#{invoices.add}">Add invoice:</h2>
     <form action="/app/invoices/add" th:object="${clearInvoice}" method="post">
         <table>
             <tr>
-                <th>
+                <th th:text="#{invoices.id}">
                     Invoice ID:
                 </th>
                 <th>
@@ -49,7 +51,7 @@
                 </th>
             </tr>
             <tr>
-                <th>
+                <th th:text="#{invoices.issue}">
                     Issue date:
                 </th>
                 <th>
@@ -57,7 +59,7 @@
                 </th>
             </tr>
             <tr>
-                <th>
+                <th th:text="#{invoices.sale}">
                     Sale date:
                 </th>
                 <th>
@@ -65,7 +67,7 @@
                 </th>
             </tr>
             <tr>
-                <th>
+                <th th:text="#{invoices.days}">
                     Days until payment:
                 </th>
                 <th>
@@ -73,20 +75,21 @@
                 </th>
             </tr>
             <tr>
-                <th>
+                <th th:text="#{invoices.orders}">
                     Orders:
                 </th>
                 <th>
                     <select id="orders" th:field="*{orders}" multiple="multiple">
                         <option th:each="unusedOrder: ${unusedOrders}"
                                 th:value="${unusedOrder.number}"
-                                th:text="${unusedOrder}">Unused orders to choose from
+                                th:text="${unusedOrder}">
+                            Unused orders to choose from
                         </option>
                     </select>
                 </th>
             </tr>
         </table>
-        <button type="submit">Next</button>
+        <button type="submit" th:text="#{general.submit}">Submit</button>
     </form>
 </body>
 </html>

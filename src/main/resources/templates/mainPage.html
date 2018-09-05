@@ -8,16 +8,16 @@
     <div>
         <table>
             <tr>
-                <td>
-                    PROGRAM DO FAKTUR XD
+                <td th:text="#{main.title}">
+                    Invoice application
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a th:href="@{~/app/orders}">Orders</a>
+                    <a th:href="@{~/app/orders}" th:text="#{main.orders}">Orders</a>
                 </td>
                 <td>
-                    <a th:href="@{~/app/invoices}">Invoices</a>
+                    <a th:href="@{~/app/invoices}" th:text="#{main.invoices}">Invoices</a>
                 </td>
             </tr>
         </table>
